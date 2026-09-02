@@ -6,7 +6,7 @@ Juegos para las competencias de jóvenes de la iglesia MIBAFUCA.
 
 Versión cristiana de *100 Latinos Dijeron* (Family Feud), pensada para dos equipos y un presentador que controla todo desde una sola pantalla.
 
-**Jugar en línea:** https://hellenp-a.github.io/JOVENEVESMIBAFUCA/100-cristianos-dijeron.html
+**Jugar en línea:** https://hellenp-a.github.io/JOVENESMIBAFUCA/100-cristianos-dijeron.html
 
 **Jugar sin internet:** descarga `100-cristianos-dijeron.html` y ábrelo con doble clic en Chrome, Edge o Safari.
 
