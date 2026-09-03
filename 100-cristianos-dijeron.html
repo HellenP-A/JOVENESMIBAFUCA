@@ -1,10 +1,11 @@
+<meta charset="utf-8">
 <title>100 Cristianos Dijeron</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@600;800&display=swap">
 <style>
   :root{
     --navy:#0B1A3A; --navy2:#122A5C; --board:#14357A; --board-hi:#1E4AA3;
     --gold:#F2B705; --gold-hi:#FFD75E; --cream:#FBF3DC; --muted:#8FA3CF;
-    --red:#D62839; --green:#3CB371;
+    --red:#D62839; --green:#3CB371; --blue:#2F6BFF;
   }
   *{box-sizing:border-box}
   html,body{height:100%}
@@ -15,72 +16,81 @@
   }
   .bebas{font-family:'Bebas Neue','Oswald',Impact,sans-serif; letter-spacing:.04em}
 
-  /* ---------- HEADER / SCORES ---------- */
-  header{display:grid; grid-template-columns:1fr auto 1fr; gap:16px; align-items:stretch; padding:16px 20px 8px}
+  /* ---------- TITLE ---------- */
+  .title{text-align:center; padding:12px 20px 4px}
+  .title .t1{font-size:clamp(40px,7vw,86px); line-height:.9; color:var(--gold); text-shadow:0 0 30px rgba(242,183,5,.45), 0 4px 0 #8a6600}
+  .title .t1 span{color:#fff}
+  .title .sub{font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--muted); margin-top:6px}
+
+  /* ---------- STAGE ---------- */
+  .stage{flex:1; display:grid; grid-template-columns:minmax(150px,1fr) minmax(0,3.2fr) minmax(150px,1fr); gap:16px; padding:8px 20px 12px; max-width:1500px; width:100%; margin:0 auto; align-items:stretch}
+
   .team{
-    background:linear-gradient(180deg,var(--navy2),var(--board)); border:3px solid #2A4E9C; border-radius:14px;
-    padding:10px 16px; display:flex; flex-direction:column; align-items:center; cursor:pointer; position:relative;
-    transition:transform .15s, border-color .15s, box-shadow .15s;
+    background:linear-gradient(180deg,var(--navy2),var(--board)); border:4px solid #2A4E9C; border-radius:18px;
+    padding:14px 12px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; cursor:pointer; position:relative;
+    transition:transform .15s, border-color .15s, box-shadow .15s; text-align:center;
   }
-  .team.active{border-color:var(--gold); box-shadow:0 0 0 3px rgba(242,183,5,.25), 0 0 40px rgba(242,183,5,.25); transform:translateY(-2px)}
-  .team.active::after{content:'EN TURNO'; position:absolute; top:-12px; background:var(--gold); color:var(--navy); font-size:11px; letter-spacing:.15em; padding:2px 10px; border-radius:99px; font-weight:800}
-  .team .name{font-size:clamp(22px,3vw,40px); line-height:1; text-transform:uppercase; color:var(--gold-hi); text-align:center; outline:none; border-bottom:2px dashed transparent; padding:2px 6px}
+  .team.active{border-color:var(--gold); box-shadow:0 0 0 3px rgba(242,183,5,.25), 0 0 50px rgba(242,183,5,.3); transform:translateY(-2px)}
+  .team.active::after{content:'EN TURNO'; position:absolute; top:-13px; background:var(--gold); color:var(--navy); font-size:11px; letter-spacing:.15em; padding:3px 12px; border-radius:99px; font-weight:800}
+  .team.buzzed{border-color:#fff; box-shadow:0 0 0 4px #fff, 0 0 60px #fff; animation:none}
+  .team .name{font-size:clamp(20px,2.4vw,36px); line-height:1; text-transform:uppercase; color:var(--gold-hi); outline:none; border-bottom:2px dashed transparent; padding:2px 6px; text-wrap:balance}
   .team .name:focus{border-bottom-color:var(--gold)}
-  .team .score{font-size:clamp(44px,6vw,84px); line-height:1; color:#fff; font-variant-numeric:tabular-nums; text-shadow:0 4px 0 rgba(0,0,0,.35)}
-  .team .hint{font-size:11px; color:var(--muted); letter-spacing:.1em; text-transform:uppercase}
+  .team .score{font-size:clamp(54px,7vw,110px); line-height:1; color:#fff; font-variant-numeric:tabular-nums; text-shadow:0 5px 0 rgba(0,0,0,.35)}
+  .team .pts{font-size:12px; letter-spacing:.25em; color:var(--muted); text-transform:uppercase; margin-top:-6px}
+  .team .key{font-size:11px; color:var(--muted); margin-top:8px}
+  .team .key kbd{background:var(--navy); border:1px solid #2E5AB8; border-radius:4px; padding:1px 7px; color:#fff; font-family:inherit; font-weight:800}
 
-  .logo{display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 10px}
-  .logo .t1{font-size:clamp(38px,6vw,76px); line-height:.9; color:var(--gold); text-shadow:0 0 30px rgba(242,183,5,.45), 0 4px 0 #8a6600}
-  .logo .t2{font-size:clamp(20px,3vw,34px); line-height:1; color:#fff; margin-top:6px}
-  .logo .sub{font-size:11px; letter-spacing:.25em; text-transform:uppercase; color:var(--muted); margin-top:6px}
-
-  /* ---------- BOARD ---------- */
-  main{flex:1; display:flex; flex-direction:column; gap:12px; padding:8px 20px 16px; max-width:1300px; width:100%; margin:0 auto}
-  .qbar{display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:center}
+  .center{display:flex; flex-direction:column; gap:10px; min-width:0}
+  .qbar{display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:center}
   .qnum{background:var(--gold); color:var(--navy); border-radius:10px; padding:8px 14px; font-size:26px; line-height:1; text-align:center; min-width:90px}
   .qnum small{display:block; font-family:'Nunito'; font-size:10px; letter-spacing:.15em; font-weight:800}
   .question{
-    background:#fff; color:var(--navy); border-radius:12px; padding:14px 22px; font-size:clamp(18px,2.4vw,30px); font-weight:800; line-height:1.2;
-    text-wrap:balance; text-align:center; box-shadow:0 8px 0 #B99500, 0 12px 30px rgba(0,0,0,.4);
+    background:#fff; color:var(--navy); border-radius:12px; padding:14px 22px; font-size:clamp(18px,2.2vw,30px); font-weight:800; line-height:1.2;
+    text-wrap:balance; text-align:center; box-shadow:0 8px 0 #B99500, 0 12px 30px rgba(0,0,0,.4); text-transform:uppercase;
   }
-  .pot{background:var(--navy2); border:3px solid var(--gold); border-radius:12px; padding:6px 18px; text-align:center; min-width:130px}
+  .pot{background:var(--navy2); border:3px solid var(--gold); border-radius:12px; padding:6px 16px; text-align:center; min-width:120px}
   .pot .v{font-size:44px; line-height:1; color:var(--gold-hi); font-variant-numeric:tabular-nums}
   .pot small{display:block; font-size:10px; letter-spacing:.2em; color:var(--muted); text-transform:uppercase}
 
   .board{
-    background:linear-gradient(180deg,#0E2455,#0A1A3F); border:6px solid var(--gold); border-radius:22px; padding:16px;
-    display:grid; grid-template-columns:1fr 1fr; gap:12px; box-shadow:inset 0 0 60px rgba(0,0,0,.5), 0 20px 60px rgba(0,0,0,.5);
-    position:relative;
+    background:linear-gradient(180deg,#0E2455,#0A1A3F); border:6px solid var(--gold); border-radius:22px; padding:14px 18px;
+    display:grid; grid-template-columns:1fr; gap:8px; box-shadow:inset 0 0 60px rgba(0,0,0,.5), 0 20px 60px rgba(0,0,0,.5);
   }
-  .slot{
-    height:clamp(52px,8vh,74px); border-radius:12px; perspective:900px; cursor:pointer; position:relative;
-  }
+  .slot{height:clamp(44px,6.2vh,64px); border-radius:10px; perspective:900px; cursor:pointer; position:relative}
   .slot .inner{position:absolute; inset:0; transition:transform .55s cubic-bezier(.4,0,.2,1); transform-style:preserve-3d}
   .slot.open .inner{transform:rotateX(180deg)}
-  .face{position:absolute; inset:0; border-radius:12px; backface-visibility:hidden; display:flex; align-items:center; padding:0 10px 0 16px; border:3px solid #2E5AB8}
-  .face.front{background:linear-gradient(180deg,var(--board-hi),var(--board)); justify-content:center}
-  .face.front .n{width:44px; height:44px; border-radius:50%; background:var(--navy); color:var(--gold); font-size:30px; display:flex; align-items:center; justify-content:center; border:3px solid var(--gold); line-height:1; padding-top:4px}
-  .face.back{background:linear-gradient(180deg,#fff,#E7ECF7); color:var(--navy); transform:rotateX(180deg); justify-content:space-between; border-color:var(--gold)}
-  .face.back .txt{font-size:clamp(16px,1.9vw,26px); text-transform:uppercase; padding-top:3px}
-  .face.back .pts{background:var(--board); color:#fff; font-size:34px; min-width:64px; text-align:center; border-radius:8px; padding:4px 8px 0; line-height:1; font-variant-numeric:tabular-nums}
-  .slot.empty{visibility:hidden}
+  .face{position:absolute; inset:0; border-radius:10px; backface-visibility:hidden; display:flex; align-items:center; gap:14px; padding:0 8px 0 8px; border:3px solid #2E5AB8}
+  .face .n{flex:0 0 42px; width:42px; height:42px; border-radius:50%; background:var(--navy); color:var(--gold); font-size:28px; display:flex; align-items:center; justify-content:center; border:3px solid var(--gold); line-height:1; padding-top:3px}
+  .face.front{background:linear-gradient(180deg,var(--board-hi),var(--board))}
+  .face.front .hidden{flex:1; font-size:clamp(16px,1.8vw,24px); letter-spacing:.35em; color:#6E8BD1; text-align:center}
+  .face.back{background:linear-gradient(180deg,#fff,#E7ECF7); color:var(--navy); transform:rotateX(180deg); border-color:var(--gold)}
+  .face.back .n{background:var(--gold); color:var(--navy); border-color:var(--navy)}
+  .face.back .txt{flex:1; font-size:clamp(18px,2vw,28px); text-transform:uppercase; padding-top:3px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .face.back .pts{background:var(--board); color:#fff; font-size:32px; min-width:70px; text-align:center; border-radius:8px; padding:4px 8px 0; line-height:1; font-variant-numeric:tabular-nums}
   .slot:focus-visible{outline:3px solid var(--gold-hi); outline-offset:2px}
 
-  /* ---------- CHECK ---------- */
-  .check{display:grid; grid-template-columns:1fr auto; gap:10px; align-items:center; max-width:820px; width:100%; margin:0 auto}
-  .check input{font-family:'Nunito'; font-weight:800; font-size:22px; padding:12px 16px; border-radius:12px; border:3px solid #2E5AB8; background:#fff; color:var(--navy); width:100%}
-  .check input:focus{outline:none; border-color:var(--gold); box-shadow:0 0 0 4px rgba(242,183,5,.25)}
-  .check .btn{font-size:18px; padding:12px 18px}
-  .verdict{grid-column:1/-1; text-align:center; min-height:22px; font-size:15px; font-weight:800; letter-spacing:.05em}
-  .verdict.ok{color:#7CF0A6} .verdict.no{color:#FF7A88}
-
-  /* ---------- STRIKES ---------- */
   .strikes{display:flex; justify-content:center; gap:14px; align-items:center}
   .x{width:54px; height:54px; border-radius:10px; border:3px solid #3A2A44; display:flex; align-items:center; justify-content:center; font-size:46px; color:#3A2A44; line-height:1; padding-top:4px; transition:all .2s}
   .x.on{border-color:var(--red); color:#fff; background:var(--red); box-shadow:0 0 24px rgba(214,40,57,.6)}
 
+  /* ---------- BUZZER ---------- */
+  .buzzrow{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:14px; padding:4px 20px 8px; max-width:1500px; width:100%; margin:0 auto}
+  .buzz{
+    width:150px; height:150px; border-radius:50%; border:0; cursor:pointer; position:relative; justify-self:center;
+    background:radial-gradient(circle at 35% 30%, #FF6B6B, var(--red) 55%, #8C1622 100%);
+    box-shadow:0 10px 0 #5E0E17, 0 16px 40px rgba(0,0,0,.6), inset 0 -6px 18px rgba(0,0,0,.35);
+    color:#fff; font-size:22px; line-height:1; transition:transform .08s, box-shadow .08s; text-shadow:0 2px 0 rgba(0,0,0,.4);
+  }
+  .buzz:active,.buzz.pressed{transform:translateY(8px); box-shadow:0 2px 0 #5E0E17, 0 6px 20px rgba(0,0,0,.6)}
+  .buzz.armed{animation:glow .7s infinite alternate}
+  @keyframes glow{from{box-shadow:0 10px 0 #5E0E17,0 0 20px rgba(255,80,80,.5)} to{box-shadow:0 10px 0 #5E0E17,0 0 60px rgba(255,80,80,1)}}
+  .buzz small{display:block; font-family:'Nunito'; font-size:10px; letter-spacing:.2em; font-weight:800; margin-top:4px; opacity:.85}
+  .side{display:flex; flex-direction:column; align-items:center; gap:6px; font-size:12px; color:var(--muted); text-align:center}
+  .side .hand{font-size:clamp(28px,4vw,54px); color:#fff; opacity:0; transform:scale(.6); transition:all .2s}
+  .side .hand.on{opacity:1; transform:scale(1); color:var(--gold-hi); text-shadow:0 0 30px rgba(242,183,5,.8)}
+
   /* ---------- CONTROLS ---------- */
-  .controls{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:center; background:rgba(0,0,0,.3); border-radius:14px; padding:10px}
+  .controls{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:center; background:rgba(0,0,0,.3); border-radius:14px; padding:10px; margin:0 20px 6px}
   .btn{
     font-family:'Nunito'; font-weight:800; font-size:14px; border:0; border-radius:10px; padding:10px 14px; cursor:pointer;
     background:#1E3D80; color:#fff; border-bottom:4px solid #0D2250; transition:transform .08s, filter .15s;
@@ -91,11 +101,22 @@
   .btn.red{background:var(--red); border-bottom-color:#8C1622}
   .btn.green{background:var(--green); border-bottom-color:#22774A; color:#062812}
   .btn.ghost{background:transparent; border:2px solid #2E5AB8; border-bottom-width:2px; color:var(--muted)}
+  .btn.big{font-size:17px; padding:12px 20px}
   .btn kbd{font-family:inherit; font-size:10px; opacity:.7; margin-left:6px; border:1px solid currentColor; border-radius:4px; padding:0 4px}
   .sep{width:1px; height:28px; background:#2E5AB8; margin:0 4px}
   .mult{display:flex; border-radius:10px; overflow:hidden; border:2px solid #2E5AB8}
   .mult button{background:transparent; color:var(--muted); border:0; padding:8px 12px; font-family:'Nunito'; font-weight:800; cursor:pointer}
   .mult button.on{background:var(--gold); color:var(--navy)}
+
+  /* ---------- JUDGE DRAWER (fallback) ---------- */
+  .drawer{display:none; background:#fff; color:var(--navy); border-radius:12px; padding:10px 14px; max-width:900px; width:calc(100% - 40px); margin:0 auto 10px; border:3px solid var(--gold)}
+  .drawer.show{display:block}
+  .drawer h3{margin:0 0 8px; font-size:20px; color:var(--board)}
+  .drawer .row2{display:grid; grid-template-columns:1fr 1fr; gap:6px}
+  .drawer button{font-family:'Nunito'; font-weight:800; font-size:15px; text-align:left; border:2px solid #C9D3EA; background:#F3F6FC; color:var(--navy); border-radius:8px; padding:8px 10px; cursor:pointer; display:flex; justify-content:space-between; gap:8px}
+  .drawer button:hover{border-color:var(--gold); background:#FFF7DC}
+  .drawer button.done{opacity:.45; text-decoration:line-through}
+  .drawer .foot{display:flex; justify-content:flex-end; gap:8px; margin-top:8px}
 
   /* ---------- OVERLAYS ---------- */
   .flash{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; opacity:0; transition:opacity .2s; z-index:50}
@@ -107,93 +128,98 @@
 
   .modal{position:fixed; inset:0; background:rgba(3,8,20,.85); display:none; align-items:center; justify-content:center; z-index:60; padding:20px}
   .modal.show{display:flex}
-  .card{background:var(--navy2); border:3px solid var(--gold); border-radius:18px; padding:24px 28px; width:min(560px,100%); max-height:90vh; overflow:auto}
+  .card{background:var(--navy2); border:3px solid var(--gold); border-radius:18px; padding:24px 28px; width:min(600px,100%); max-height:90vh; overflow:auto}
   .card h2{font-size:38px; margin:0 0 4px; color:var(--gold)}
   .card p{color:var(--muted); margin:0 0 16px; font-size:14px}
-  .field{display:flex; flex-direction:column; gap:6px; margin-bottom:14px}
-  .field label{font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--muted)}
-  .field input{font-family:'Nunito'; font-weight:800; font-size:20px; padding:10px 12px; border-radius:10px; border:2px solid #2E5AB8; background:var(--navy); color:#fff}
-  .field input:focus{outline:none; border-color:var(--gold)}
   .row{display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap}
   .qlist{display:grid; gap:6px}
   .qlist button{text-align:left; font-family:'Nunito'; font-weight:600; font-size:14px; background:var(--navy); color:var(--cream); border:2px solid #2E5AB8; border-radius:8px; padding:8px 10px; cursor:pointer; display:flex; gap:10px}
   .qlist button:hover{border-color:var(--gold)}
   .qlist button.done{opacity:.5}
   .qlist button b{color:var(--gold); min-width:26px}
-  .help{font-size:13px; color:var(--muted); line-height:1.6}
+  .help{font-size:13px; color:var(--muted); line-height:1.65}
+  .help b{color:#fff}
   .help kbd{background:var(--navy); border:1px solid #2E5AB8; border-radius:4px; padding:0 6px; color:#fff; font-family:inherit}
 
-  footer{text-align:center; font-size:11px; color:#4A5E8C; padding:4px 0 10px; letter-spacing:.1em; text-transform:uppercase}
+  footer{text-align:center; font-size:11px; color:#4A5E8C; padding:2px 0 10px; letter-spacing:.1em; text-transform:uppercase}
 
-  @media (max-width:760px){
-    header{grid-template-columns:1fr 1fr; padding:12px}
-    .logo{grid-column:1/-1; order:-1}
-    .board{grid-template-columns:1fr}
-    .qbar{grid-template-columns:1fr; text-align:center}
-    .qnum,.pot{justify-self:center}
-    main{padding:8px 12px 16px}
+  @media (max-width:900px){
+    .stage{grid-template-columns:1fr 1fr; gap:10px; padding:8px 12px}
+    .center{grid-column:1/-1; order:-1}
+    .team .score{font-size:56px}
+    .buzzrow{grid-template-columns:1fr auto 1fr; padding:4px 12px}
+    .buzz{width:110px; height:110px; font-size:16px}
   }
-  @media (prefers-reduced-motion:reduce){ .slot .inner{transition:none} .flash .bigx,.flash .award{animation:none} }
+  @media (prefers-reduced-motion:reduce){ .slot .inner{transition:none} .flash .bigx,.flash .award{animation:none} .buzz.armed{animation:none} }
 </style>
 
-<header>
+<div class="title">
+  <div class="t1 bebas">100 Cristianos <span>Dijeron</span></div>
+  <div class="sub">Competencia de jovenes MIBAFUCA</div>
+</div>
+
+<div class="stage">
   <div class="team" id="teamA" data-team="A">
     <div class="name bebas" contenteditable="true" spellcheck="false" id="nameA">Guerreros de la Fe</div>
     <div class="score bebas" id="scoreA">0</div>
-    <div class="hint">clic para dar el turno</div>
+    <div class="pts">puntos</div>
+    <div class="key">Pulsador: <kbd>A</kbd></div>
   </div>
-  <div class="logo">
-    <div class="t1 bebas">100 Cristianos</div>
-    <div class="t2 bebas">Dijeron</div>
-    <div class="sub">Jóvenes MIBAFUCA</div>
+
+  <div class="center">
+    <div class="qbar">
+      <div class="qnum bebas"><small>PREGUNTA</small><span id="qnum">1 / 20</span></div>
+      <div class="question" id="qtext"></div>
+      <div class="pot"><small>En juego</small><div class="v bebas" id="pot">0</div></div>
+    </div>
+    <div class="board" id="board"></div>
+    <div class="strikes" id="strikes">
+      <div class="x bebas">X</div><div class="x bebas">X</div><div class="x bebas">X</div>
+    </div>
   </div>
+
   <div class="team" id="teamB" data-team="B">
     <div class="name bebas" contenteditable="true" spellcheck="false" id="nameB">JAZAKM</div>
     <div class="score bebas" id="scoreB">0</div>
-    <div class="hint">clic para dar el turno</div>
+    <div class="pts">puntos</div>
+    <div class="key">Pulsador: <kbd>L</kbd></div>
   </div>
-</header>
+</div>
 
-<main>
-  <div class="qbar">
-    <div class="qnum bebas"><small>PREGUNTA</small><span id="qnum">1 / 20</span></div>
-    <div class="question" id="qtext">…</div>
-    <div class="pot"><small>En juego</small><div class="v bebas" id="pot">0</div></div>
+<div class="buzzrow">
+  <div class="side"><div class="hand bebas" id="handA">GANO EL PULSADOR</div></div>
+  <button class="buzz bebas" id="buzz">ENFRENTAMIENTO<small>Pulsador</small></button>
+  <div class="side"><div class="hand bebas" id="handB">GANO EL PULSADOR</div></div>
+</div>
+
+<div class="drawer" id="drawer">
+  <h3>Panel del juez: pulsa la respuesta que dijo el jugador</h3>
+  <div class="row2" id="drawerList"></div>
+  <div class="foot"><button id="drawerNo" style="background:var(--red);color:#fff;border-color:var(--red)">No esta en la lista (Strike)</button><button id="drawerClose">Cerrar</button></div>
+</div>
+
+<div class="controls">
+  <button class="btn gold big" id="btnJudge">Panel del juez (revisar respuesta)</button>
+  <button class="btn red" id="btnStrike">Strike <kbd>X</kbd></button>
+  <button class="btn ghost" id="btnUnstrike">Quitar strike</button>
+  <span class="sep"></span>
+  <div class="mult" id="mult">
+    <button data-m="1" class="on">x1</button><button data-m="2">x2</button><button data-m="3">x3</button>
   </div>
-
-  <div class="board" id="board"></div>
-
-  <form class="check" id="checkForm" autocomplete="off">
-    <input type="text" id="answerInput" placeholder="Escribe la respuesta que dijo el jugador…" aria-label="Respuesta">
-    <button class="btn gold" type="submit">Verificar ✓ <kbd>Enter</kbd></button>
-    <div class="verdict" id="verdict"></div>
-  </form>
-
-  <div class="strikes" id="strikes">
-    <div class="x bebas">X</div><div class="x bebas">X</div><div class="x bebas">X</div>
-  </div>
-
-  <div class="controls">
-    <button class="btn red" id="btnStrike">Strike ✗ <kbd>X</kbd></button>
-    <button class="btn ghost" id="btnUnstrike">Quitar strike</button>
-    <span class="sep"></span>
-    <div class="mult" id="mult">
-      <button data-m="1" class="on">×1</button><button data-m="2">×2</button><button data-m="3">×3</button>
-    </div>
-    <span class="sep"></span>
-    <button class="btn gold" id="btnAwardA">Puntos → <span id="lblA">Guerreros de la Fe</span> <kbd>Q</kbd></button>
-    <button class="btn gold" id="btnAwardB">Puntos → <span id="lblB">JAZAKM</span> <kbd>P</kbd></button>
-    <span class="sep"></span>
-    <button class="btn" id="btnRevealAll">Revelar todo <kbd>R</kbd></button>
-    <button class="btn" id="btnPrev">◀ <kbd>←</kbd></button>
-    <button class="btn green" id="btnNext">Siguiente pregunta ▶ <kbd>→</kbd></button>
-    <span class="sep"></span>
-    <button class="btn ghost" id="btnList">Lista</button>
-    <button class="btn ghost" id="btnHelp">Ayuda</button>
-    <button class="btn ghost" id="btnReset">Reiniciar</button>
-  </div>
-</main>
-<footer>Escribe la respuesta y Enter para verificar · 1–8 revelan · X strike · Q / P dan los puntos · ← → cambian de pregunta</footer>
+  <span class="sep"></span>
+  <button class="btn gold" id="btnAwardA">Puntos para <span id="lblA">Guerreros de la Fe</span> <kbd>Q</kbd></button>
+  <button class="btn gold" id="btnAwardB">Puntos para <span id="lblB">JAZAKM</span> <kbd>P</kbd></button>
+  <span class="sep"></span>
+  <button class="btn" id="btnRevealAll">Revelar todo <kbd>R</kbd></button>
+  <button class="btn" id="btnPrev">Anterior <kbd>&larr;</kbd></button>
+  <button class="btn green" id="btnNext">Siguiente <kbd>&rarr;</kbd></button>
+  <span class="sep"></span>
+  <button class="btn ghost" id="btnTurn">Turno cambia: 3 strikes</button>
+  <button class="btn ghost" id="btnList">Lista</button>
+  <button class="btn ghost" id="btnHelp">Ayuda</button>
+  <button class="btn ghost" id="btnReset">Reiniciar</button>
+</div>
+<footer>Pulsador: teclas A y L | Panel del juez revisa respuestas | 1-8 revelan | X strike | Q / P dan los puntos | flechas cambian de pregunta</footer>
 
 <div class="flash" id="flash"></div>
 
@@ -205,53 +231,59 @@
 </div></div>
 
 <div class="modal" id="mHelp"><div class="card">
-  <h2 class="bebas">Cómo se juega</h2>
+  <h2 class="bebas">Como se juega</h2>
   <div class="help">
-    <b>Enfrentamiento:</b> un jugador de cada equipo responde; el que dé la respuesta más alta decide si su equipo juega o pasa. Haz clic en el equipo para darle el turno.<br>
-    <b>Ronda:</b> el equipo en turno dice una respuesta. Escríbela en el campo y pulsa <kbd>Enter</kbd> o <b>Verificar</b>: si está en la lista se revela y suma al marcador "En juego"; si no está, se marca un strike automáticamente. No importan mayúsculas, tildes ni pequeños errores de escritura. También puedes revelar a mano con clic o teclas <kbd>1</kbd>–<kbd>8</kbd> y marcar strikes con <kbd>X</kbd>.<br>
-    <b>Robo:</b> con 3 strikes, el otro equipo tiene una sola oportunidad. Si acierta, dale los puntos a ese equipo (<kbd>Q</kbd> o <kbd>P</kbd>); si falla, los puntos van al equipo original.<br>
-    <b>Multiplicador:</b> usa ×2 o ×3 en las últimas rondas para que valgan más.<br>
-    <b>Nombres:</b> haz clic sobre el nombre de un equipo para editarlo.<br>
-    <b>Otras teclas:</b> <kbd>R</kbd> revela todo · <kbd>←</kbd> <kbd>→</kbd> cambian pregunta · <kbd>Esc</kbd> cierra ventanas.<br>
-    Los marcadores se guardan en este navegador hasta que pulses "Reiniciar".
+    <b>1. Enfrentamiento:</b> un jugador de cada equipo se para frente a la laptop. El presentador lee la pregunta y pulsa el boton rojo <b>ENFRENTAMIENTO</b> (o <kbd>Espacio</kbd>). El primer jugador que presione su tecla (<kbd>A</kbd> equipo izquierdo, <kbd>L</kbd> equipo derecho) gana el pulsador y responde primero. Si su respuesta esta en la lista, su equipo toma el control (o puede pasar). Tambien se puede tocar la tarjeta del equipo para darle el turno a mano.<br>
+    <b>2. Ronda:</b> el jugador dice una respuesta. El juez pulsa <b>Panel del juez</b>: se abre una ventana aparte con las 8 respuestas y sus puntos (solo la ve el juez). Si la palabra esta en la lista, pulsa esa fila y se voltea en el tablero con su posicion y puntos. Si no esta, pulsa <b>No esta en la lista</b> y aparece una X.<br>
+    <b>3. Robo:</b> con 3 X el otro equipo tiene una sola oportunidad. Si acierta, se lleva los puntos (<kbd>Q</kbd> o <kbd>P</kbd>); si falla, los puntos van al equipo original. Con "Turno cambia: cada fallo" el turno pasa con cada X.<br>
+    <b>4. Puntos:</b> lo que se acumula en "En juego" se entrega con "Puntos para..." y se revelan las respuestas que faltaban. Usa x2 o x3 en las ultimas rondas.<br>
+    <b>Dos pantallas:</b> Win+P y "Extender": tablero en el proyector (F11 para pantalla completa) y Panel del juez en la laptop. Si el navegador bloquea la ventana, el panel se abre debajo del tablero.<br>
+    <b>Nombres:</b> clic sobre el nombre del equipo para editarlo. Los marcadores se guardan en este navegador hasta pulsar "Reiniciar".
   </div>
   <div class="row" style="margin-top:14px"><button class="btn ghost" data-close>Cerrar</button></div>
 </div></div>
 
 <script>
 const QUESTIONS = [
-  {q:"Nombra un personaje de la Biblia que todo el mundo conoce.", a:[["Jesús / Jesucristo",32],["Moisés",20],["David",15],["Noé",12],["Pablo",8],["Abraham",7],["María",6]]},
-  {q:"Algo que la gente lleva a la iglesia.", a:[["La Biblia",40],["El celular",18],["La ofrenda",15],["Un cuaderno",10],["Botella de agua",7],["A la familia",6],["A un amigo",4]]},
-  {q:"Un libro de la Biblia que empieza con la letra J.", a:[["Juan",35],["Josué",20],["Jueces",14],["Jonás",12],["Jeremías",10],["Job",6],["Judas",3]]},
-  {q:"Una excusa para llegar tarde a la iglesia.", a:[["El tráfico",30],["Me quedé dormido",28],["No sabía qué ponerme",15],["El desayuno",12],["La familia no estaba lista",10],["Se me olvidó la hora",5]]},
-  {q:"Un milagro que hizo Jesús.", a:[["Resucitar a Lázaro",22],["Caminar sobre el agua",20],["Multiplicar panes y peces",18],["Agua en vino",15],["Sanar ciegos",12],["Calmar la tormenta",8],["Sanar leprosos",5]]},
-  {q:"Un fruto del Espíritu.", a:[["Amor",30],["Paz",18],["Paciencia",15],["Gozo",12],["Bondad",8],["Fe",7],["Mansedumbre",5],["Dominio propio",5]]},
-  {q:"Algo que hace un joven cristiano en un campamento.", a:[["Fogata",25],["Adorar",20],["Hacer amigos",15],["Juegos",15],["Devocionales",10],["Dormir poco",8],["Comer",7]]},
-  {q:"Un animal que aparece en la Biblia.", a:[["Oveja",25],["Burro / Asno",18],["Serpiente",15],["León",12],["Paloma",10],["Gran pez / ballena",8],["Camello",7],["Pez",5]]},
-  {q:"Un instrumento del grupo de alabanza.", a:[["Guitarra",30],["Batería",22],["Piano / teclado",20],["Bajo",12],["Pandereta",8],["Violín",5],["La voz",3]]},
-  {q:"Algo que un pastor dice mucho cuando predica.", a:[["¡Amén!",30],["Dios te bendiga",20],["Abran sus Biblias",18],["Hermanos…",12],["¡Aleluya!",10],["Ya voy a terminar",10]]},
-  {q:"Una mujer de la Biblia.", a:[["María",30],["Ester",20],["Rut",15],["Eva",12],["Sara",10],["Débora",7],["Marta",6]]},
-  {q:"Un personaje bíblico que pasó por una gran prueba.", a:[["Job",40],["Daniel",20],["José",15],["Abraham",10],["Pablo",8],["Noé",7]]},
-  {q:"Algo que había dentro del arca de Noé.", a:[["Animales",45],["La familia de Noé",20],["Comida",15],["Una paloma",10],["Madera",5],["Mal olor",5]]},
-  {q:"Un nombre típico para un grupo de jóvenes de iglesia.", a:[["Guerreros",25],["Jóvenes en Cristo",20],["Generación…",18],["Fuego",12],["Luz",10],["Impacto",8],["Remanente",7]]},
-  {q:"Un lugar famoso de la Biblia.", a:[["Jerusalén",30],["Belén",22],["Egipto",15],["Jericó",12],["Nazaret",8],["Babilonia",7],["Galilea",6]]},
-  {q:"Algo que hace alguien cuando le piden orar en público de sorpresa.", a:[["Se pone nervioso",30],["Ora larguísimo",20],["Repite 'Señor' mil veces",18],["Ora muy corto",12],["Se le olvida el amén",10],["Mira a todos lados",10]]},
-  {q:"Un rey que aparece en la Biblia.", a:[["David",35],["Salomón",25],["Saúl",15],["Herodes",10],["Nabucodonosor",8],["Ezequías",4],["Faraón",3]]},
-  {q:"Un discípulo de Jesús.", a:[["Pedro",35],["Juan",20],["Judas",15],["Mateo",10],["Tomás",8],["Andrés",6],["Santiago",6]]},
-  {q:"Algo que hace la gente durante un sermón muy largo.", a:[["Se duerme",35],["Mira el celular",25],["Ve la hora",15],["Sale al baño",10],["Come dulces",8],["Dibuja en el boletín",7]]},
-  {q:"Una de las plagas de Egipto.", a:[["Ranas / Sapos",25],["Langostas",20],["Agua en sangre",18],["Moscas",12],["Granizo",10],["Tinieblas",8],["Muerte de primogénitos",7]]},
+  {q:"Nombra un personaje de la Biblia que todo el mundo conoce.", a:[["Jesus / Jesucristo",30],["Moises",18],["David",14],["Noe",12],["Pablo",8],["Abraham",7],["Maria",6],["Pedro",5]]},
+  {q:"Algo que la gente lleva a la iglesia.", a:[["La Biblia",38],["El celular",17],["La ofrenda",14],["Un cuaderno",9],["Botella de agua",7],["A la familia",6],["A un amigo",5],["Un lapicero",4]]},
+  {q:"Un libro de la Biblia que empieza con la letra J.", a:[["Juan",33],["Josue",20],["Jueces",13],["Jonas",12],["Jeremias",10],["Job",6],["Judas",4],["Joel",2]]},
+  {q:"Una excusa para llegar tarde a la iglesia.", a:[["El trafico",28],["Me quede dormido",26],["No sabia que ponerme",14],["El desayuno",11],["La familia no estaba lista",9],["Se me olvido la hora",5],["No habia bus / transporte",4],["Estaba lloviendo",3]]},
+  {q:"Un milagro que hizo Jesus.", a:[["Resucitar a Lazaro",20],["Caminar sobre el agua",18],["Multiplicar panes y peces",17],["Agua en vino",14],["Sanar ciegos",11],["Calmar la tormenta",8],["Sanar leprosos",6],["Sanar al paralitico",6]]},
+  {q:"Un fruto del Espiritu.", a:[["Amor",28],["Paz",17],["Paciencia",14],["Gozo",12],["Bondad",8],["Fe",7],["Mansedumbre",5],["Dominio propio",5]]},
+  {q:"Algo que hace un joven cristiano en un campamento.", a:[["Fogata",23],["Adorar",19],["Hacer amigos",14],["Juegos",14],["Devocionales",10],["Dormir poco",8],["Comer",7],["Banarse en el rio",5]]},
+  {q:"Un animal que aparece en la Biblia.", a:[["Oveja / Cordero",24],["Burro / Asno",17],["Serpiente",14],["Leon",12],["Paloma",10],["Gran pez / Ballena",8],["Camello",7],["Pez",8]]},
+  {q:"Un instrumento del grupo de alabanza.", a:[["Guitarra",28],["Bateria",21],["Piano / Teclado",19],["Bajo",12],["Pandereta",8],["Violin",5],["La voz",4],["Trompeta",3]]},
+  {q:"Algo que un pastor dice mucho cuando predica.", a:[["Amen",28],["Dios te bendiga",19],["Abran sus Biblias",17],["Hermanos",11],["Aleluya",9],["Ya voy a terminar",9],["Gloria a Dios",4],["Alguien diga amen",3]]},
+  {q:"Una mujer de la Biblia.", a:[["Maria",28],["Ester",19],["Rut",14],["Eva",12],["Sara",9],["Debora",7],["Marta",6],["Ana",5]]},
+  {q:"Un personaje biblico que paso por una gran prueba.", a:[["Job",36],["Daniel",18],["Jose",14],["Abraham",10],["Pablo",8],["Noe",6],["Jonas",5],["Ester",3]]},
+  {q:"Algo que habia dentro del arca de Noe.", a:[["Animales",42],["La familia de Noe",19],["Comida",14],["Una paloma",9],["Madera",5],["Mal olor",5],["Un cuervo",3],["Paja / Heno",3]]},
+  {q:"Un nombre tipico para un grupo de jovenes de iglesia.", a:[["Guerreros",23],["Jovenes en Cristo",18],["Generacion",16],["Fuego",11],["Luz",9],["Impacto",8],["Levantate",8],["Remanente",7]]},
+  {q:"Un lugar famoso de la Biblia.", a:[["Jerusalen",28],["Belen",20],["Egipto",14],["Jerico",11],["Nazaret",8],["Babilonia",7],["Galilea",6],["Monte Sinai",6]]},
+  {q:"Algo que hace alguien cuando le piden orar en publico de sorpresa.", a:[["Se pone nervioso",27],["Ora larguisimo",18],["Repite 'Senor' mil veces",16],["Ora muy corto",11],["Se le olvida el amen",9],["Mira a todos lados",9],["Dice 'que ore otro'",6],["Le tiembla la voz",4]]},
+  {q:"Un rey que aparece en la Biblia.", a:[["David",33],["Salomon",23],["Saul",14],["Herodes",10],["Nabucodonosor",8],["Ezequias",4],["Faraon",4],["Josias",4]]},
+  {q:"Un discipulo de Jesus.", a:[["Pedro",32],["Juan",19],["Judas",14],["Mateo",10],["Tomas",8],["Andres",6],["Santiago",6],["Felipe",5]]},
+  {q:"Algo que hace la gente durante un sermon muy largo.", a:[["Se duerme",32],["Mira el celular",23],["Ve la hora",14],["Sale al bano",9],["Come dulces",8],["Dibuja en el boletin",6],["Bosteza",5],["Habla con el de al lado",3]]},
+  {q:"Una de las plagas de Egipto.", a:[["Ranas / Sapos",23],["Langostas",18],["Agua en sangre",16],["Moscas",11],["Granizo",9],["Tinieblas",8],["Piojos",8],["Muerte de primogenitos",7]]},
 ];
 
 const $ = s=>document.querySelector(s);
-const state = { i:0, scores:{A:0,B:0}, open:[], strikes:0, mult:1, active:'A', played:[] };
+const state = { i:0, scores:{A:0,B:0}, open:[], strikes:0, mult:1, active:null, played:[], turnMode:'3', faceoff:false };
+let potLocked=false;
 
 function save(){ try{ localStorage.setItem('cd100', JSON.stringify({scores:state.scores, played:state.played, names:[$('#nameA').textContent,$('#nameB').textContent]})); }catch(e){} }
 function load(){ try{ const d=JSON.parse(localStorage.getItem('cd100')||'null'); if(d){ state.scores=d.scores||state.scores; state.played=d.played||[]; if(d.names){ $('#nameA').textContent=d.names[0]; $('#nameB').textContent=d.names[1]; } } }catch(e){} }
 
-/* ---- sound (WebAudio, no files) ---- */
+/* ---- sound ---- */
 let ac=null;
 function tone(f,d,type='sine',g=.25,when=0){ try{ ac=ac||new (window.AudioContext||window.webkitAudioContext)(); const o=ac.createOscillator(), v=ac.createGain(); o.type=type; o.frequency.value=f; v.gain.setValueAtTime(g,ac.currentTime+when); v.gain.exponentialRampToValueAtTime(.001,ac.currentTime+when+d); o.connect(v).connect(ac.destination); o.start(ac.currentTime+when); o.stop(ac.currentTime+when+d);}catch(e){} }
-const sfx={ ding(){ tone(880,.35,'sine',.3); tone(1320,.5,'sine',.2,.08); }, buzz(){ tone(110,.7,'sawtooth',.3); tone(92,.7,'square',.15); }, win(){ [523,659,784,1046].forEach((f,i)=>tone(f,.3,'triangle',.25,i*.1)); } };
+const sfx={
+  ding(){ tone(880,.35,'sine',.3); tone(1320,.5,'sine',.2,.08); },
+  buzz(){ tone(110,.7,'sawtooth',.3); tone(92,.7,'square',.15); },
+  win(){ [523,659,784,1046].forEach((f,i)=>tone(f,.3,'triangle',.25,i*.1)); },
+  arm(){ tone(440,.15,'square',.15); tone(660,.15,'square',.15,.18); tone(880,.3,'square',.15,.36); },
+  buzzer(){ tone(1200,.12,'square',.3); tone(1200,.25,'square',.3,.15); }
+};
 
 /* ---- render ---- */
 function render(){
@@ -259,17 +291,16 @@ function render(){
   $('#qnum').textContent=(state.i+1)+' / '+QUESTIONS.length;
   $('#qtext').textContent=Q.q;
   const b=$('#board'); b.innerHTML='';
-  const n=Q.a.length, rows=Math.ceil(n/2);
-  // column-major order like the TV board: 1-4 left, 5-8 right
-  for(let r=0;r<rows;r++) for(let c=0;c<2;c++){
-    const idx=c*rows+r; const slot=document.createElement('div');
-    if(idx>=n){ slot.className='slot empty'; b.appendChild(slot); continue; }
+  Q.a.forEach((a,idx)=>{
+    const slot=document.createElement('div');
     slot.className='slot'+(state.open[idx]?' open':''); slot.tabIndex=0;
-    slot.innerHTML=`<div class="inner"><div class="face front"><div class="n bebas">${idx+1}</div></div><div class="face back"><div class="txt bebas">${Q.a[idx][0]}</div><div class="pts bebas">${Q.a[idx][1]}</div></div></div>`;
+    slot.innerHTML=`<div class="inner">
+      <div class="face front"><div class="n bebas">${idx+1}</div><div class="hidden bebas">????????</div></div>
+      <div class="face back"><div class="n bebas">${idx+1}</div><div class="txt bebas">${a[0]}</div><div class="pts bebas">${a[1]}</div></div></div>`;
     slot.addEventListener('click',()=>reveal(idx));
     slot.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();reveal(idx);} });
     b.appendChild(slot);
-  }
+  });
   document.querySelectorAll('#strikes .x').forEach((x,k)=>x.classList.toggle('on',k<state.strikes));
   $('#scoreA').textContent=state.scores.A; $('#scoreB').textContent=state.scores.B;
   $('#teamA').classList.toggle('active',state.active==='A'); $('#teamB').classList.toggle('active',state.active==='B');
@@ -277,25 +308,32 @@ function render(){
   document.querySelectorAll('#mult button').forEach(m=>m.classList.toggle('on',+m.dataset.m===state.mult));
   updatePot();
 }
-let potLocked=false;
 function pot(){ if(potLocked) return 0; const Q=QUESTIONS[state.i]; return Q.a.reduce((s,a,k)=>s+(state.open[k]?a[1]:0),0)*state.mult; }
 function updatePot(){ $('#pot').textContent=pot(); }
 
 function reveal(idx){
   if(state.open[idx]) return;
   state.open[idx]=true; sfx.ding();
-  document.querySelectorAll('#board .slot:not(.empty)')[idx].classList.add('open');
-  updatePot();
+  document.querySelectorAll('#board .slot')[idx].classList.add('open');
+  updatePot(); updateJudge();
 }
 function revealAll(){ QUESTIONS[state.i].a.forEach((_,k)=>{ if(!state.open[k]) reveal(k); }); }
 
+function otherTeam(){ return state.active==='A'?'B':'A'; }
+function passTurn(){
+  state.active=otherTeam(); render();
+  const name=$(state.active==='A'?'#nameA':'#nameB').textContent;
+  setTimeout(()=>flash(`<div class="award bebas" style="color:#fff">TURNO<small style="color:var(--gold-hi)">${name}</small></div>`,1400),950);
+}
 function strike(){
   if(state.strikes>=3) return;
   state.strikes++; sfx.buzz();
   document.querySelectorAll('#strikes .x')[state.strikes-1].classList.add('on');
   flash(`<div class="bigx bebas">${'X'.repeat(state.strikes)}</div>`,900);
+  if(state.turnMode==='fallo' || state.strikes===3) passTurn();
+  updateJudge();
 }
-function unstrike(){ if(state.strikes>0){ state.strikes--; document.querySelectorAll('#strikes .x')[state.strikes].classList.remove('on'); } }
+function unstrike(){ if(state.strikes>0){ state.strikes--; document.querySelectorAll('#strikes .x')[state.strikes].classList.remove('on'); updateJudge(); } }
 
 function award(t){
   const p=pot(); if(p===0) return;
@@ -304,52 +342,88 @@ function award(t){
   flash(`<div class="award bebas">+${p}<small>${name}</small></div>`,1500);
   if(!state.played.includes(state.i)) state.played.push(state.i);
   potLocked=true; save(); render();
-  setTimeout(revealAll,600); // show the answers nobody guessed
+  setTimeout(revealAll,600);
 }
 
 function goTo(i){
-  state.i=(i+QUESTIONS.length)%QUESTIONS.length; state.open=[]; state.strikes=0; potLocked=false; render(); closeModals(); const v=$('#verdict'); v.className='verdict'; v.textContent='';
+  state.i=(i+QUESTIONS.length)%QUESTIONS.length; state.open=[]; state.strikes=0; potLocked=false; state.active=null; clearBuzz();
+  render(); closeModals(); updateJudge();
 }
 function flash(html,ms){ const f=$('#flash'); f.innerHTML=html; f.classList.add('show'); clearTimeout(f._t); f._t=setTimeout(()=>f.classList.remove('show'),ms); }
 
-/* ---- answer checking ---- */
-const STOP=new Set(['el','la','los','las','un','una','unos','unas','de','del','al','a','y','o','en','que','se','su','sus','mi','mis','lo','le','con','por','para']);
-function norm(s){
-  return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9ñ\s]/g,' ')
-    .split(/\s+/).filter(w=>w&&!STOP.has(w)).join(' ');
+/* ---- buzzer / face-off ---- */
+function clearBuzz(){ state.faceoff=false; $('#buzz').classList.remove('armed'); $('#handA').classList.remove('on'); $('#handB').classList.remove('on'); $('#teamA').classList.remove('buzzed'); $('#teamB').classList.remove('buzzed'); }
+function armBuzzer(){
+  if(state.faceoff){ clearBuzz(); return; }
+  clearBuzz(); state.faceoff=true; sfx.arm();
+  $('#buzz').classList.add('armed');
+  flash(`<div class="award bebas" style="color:#fff">LISTOS<small style="color:var(--gold-hi)">A = ${$('#nameA').textContent} &nbsp;|&nbsp; L = ${$('#nameB').textContent}</small></div>`,1200);
 }
-function lev(a,b){ const m=a.length,n=b.length; if(!m) return n; if(!n) return m; let p=[...Array(n+1).keys()];
-  for(let i=1;i<=m;i++){ let c=[i]; for(let j=1;j<=n;j++) c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1)); p=c; } return p[n]; }
-function similar(a,b){ if(!a||!b) return false; if(a===b) return true;
-  const tol=Math.max(1,Math.floor(Math.max(a.length,b.length)*0.25));
-  if(lev(a,b)<=tol) return true;
-  // any word of the guess matches any word of the answer (length ≥3)
-  const A=a.split(' '), B=b.split(' ');
-  return A.some(x=>x.length>=3 && B.some(y=>y.length>=3 && (x===y || (x.length>=4&&y.length>=4&&(x.startsWith(y)||y.startsWith(x))) || lev(x,y)<=Math.floor(Math.max(x.length,y.length)*0.25))));
+function buzzIn(t){
+  if(!state.faceoff) return;
+  state.faceoff=false; sfx.buzzer();
+  $('#buzz').classList.remove('armed');
+  $('#hand'+t).classList.add('on'); $('#team'+t).classList.add('buzzed');
+  state.active=t; render();
+  const name=$(t==='A'?'#nameA':'#nameB').textContent;
+  flash(`<div class="award bebas">${name}<small>gano el pulsador - responde primero</small></div>`,1800);
+  setTimeout(()=>$('#team'+t).classList.remove('buzzed'),2500);
 }
-function findAnswer(guess){
-  const g=norm(guess); if(!g) return -1;
+$('#buzz').onclick=armBuzzer;
+
+/* ---- judge panel ---- */
+let judgeWin=null;
+function judgeHTML(){
   const Q=QUESTIONS[state.i];
-  for(let k=0;k<Q.a.length;k++){
-    // answers may hold alternatives separated by " / "
-    const alts=Q.a[k][0].split('/').map(norm);
-    if(alts.some(alt=>similar(g,alt))) return k;
-  }
-  return -1;
+  const rows=Q.a.map((x,k)=>`<button class="ans ${state.open[k]?'done':''}" data-k="${k}"><span>${k+1}. ${x[0]}</span><b>${x[1]}</b></button>`).join('');
+  return `<h2>Pregunta ${state.i+1} / ${QUESTIONS.length} &nbsp;|&nbsp; Turno: ${state.active?$(state.active==='A'?'#nameA':'#nameB').textContent:'-'}</h2><p class="q">${Q.q}</p>
+  <div class="list">${rows}</div>
+  <button class="no" id="jNo">NO ESTA EN LA LISTA - STRIKE (${state.strikes}/3)</button>
+  <div class="bar"><span>En juego: <b>${pot()}</b></span>
+    <button data-act="A">Puntos para ${$('#nameA').textContent} (${state.scores.A})</button>
+    <button data-act="B">Puntos para ${$('#nameB').textContent} (${state.scores.B})</button></div>
+  <div class="bar"><button data-act="buzz">Enfrentamiento</button><button data-act="prev">Anterior</button><button data-act="next">Siguiente pregunta</button><button data-act="all">Revelar todo</button></div>`;
 }
-function checkAnswer(){
-  const inp=$('#answerInput'), v=$('#verdict'), guess=inp.value.trim();
-  if(!guess) return;
-  const k=findAnswer(guess);
-  if(k>=0){
-    if(state.open[k]){ v.className='verdict ok'; v.textContent='Ya estaba revelada: #'+(k+1); }
-    else { reveal(k); v.className='verdict ok'; v.textContent='¡Está en la lista! #'+(k+1)+' · '+QUESTIONS[state.i].a[k][0]+' — '+QUESTIONS[state.i].a[k][1]+' pts'; }
-  } else {
-    strike(); v.className='verdict no'; v.textContent='"'+guess+'" no está en la lista. Strike.';
-  }
-  inp.value=''; inp.focus();
+function judgeCSS(){ return `<meta charset="utf-8"><title>Panel del juez</title><style>
+  body{font-family:Nunito,system-ui,sans-serif;background:#0B1A3A;color:#fff;margin:0;padding:16px}
+  h2{margin:0;color:#F2B705;font-size:16px} .q{font-size:20px;font-weight:800;margin:6px 0 12px}
+  .list{display:grid;gap:6px} .ans{display:flex;justify-content:space-between;font-size:18px;font-weight:800;text-align:left;padding:12px 14px;border-radius:10px;border:2px solid #2E5AB8;background:#14357A;color:#fff;cursor:pointer}
+  .ans:hover{border-color:#F2B705;background:#1E4AA3} .ans.done{opacity:.4;text-decoration:line-through}
+  .no{width:100%;margin:12px 0;padding:14px;font-size:18px;font-weight:800;background:#D62839;color:#fff;border:0;border-radius:10px;cursor:pointer}
+  .bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+  .bar button{font-weight:800;padding:10px 12px;border-radius:8px;border:0;background:#F2B705;color:#0B1A3A;cursor:pointer}
+  .bar span{margin-right:auto;font-size:16px}
+</style>`; }
+function updateJudge(){
+  if(judgeWin && !judgeWin.closed){ const r=judgeWin.document.getElementById('root'); if(r) r.innerHTML=judgeHTML(); }
+  if($('#drawer').classList.contains('show')) renderDrawer();
 }
-$('#checkForm').addEventListener('submit',e=>{ e.preventDefault(); checkAnswer(); });
+function judgeAction(el){
+  if(el.classList.contains('ans')){ reveal(+el.dataset.k); }
+  else if(el.id==='jNo'){ strike(); }
+  else if(el.dataset.act==='A') award('A'); else if(el.dataset.act==='B') award('B');
+  else if(el.dataset.act==='prev') goTo(state.i-1); else if(el.dataset.act==='next') goTo(state.i+1);
+  else if(el.dataset.act==='all') revealAll(); else if(el.dataset.act==='buzz') armBuzzer(); else return;
+  updateJudge();
+}
+function openJudge(){
+  let w=null; try{ w=window.open('','panelJuez','width=560,height=780'); }catch(e){}
+  if(!w){ $('#drawer').classList.add('show'); renderDrawer(); return; }
+  judgeWin=w;
+  if(!w.document.getElementById('root')){
+    w.document.open(); w.document.write(judgeCSS()+'<div id="root"></div>'); w.document.close();
+    w.document.addEventListener('click',e=>{ const el=e.target.closest('button'); if(el) judgeAction(el); });
+    w.document.addEventListener('keydown',e=>{ if(e.key==='a'||e.key==='A') buzzIn('A'); if(e.key==='l'||e.key==='L') buzzIn('B'); });
+  }
+  updateJudge(); w.focus();
+}
+function renderDrawer(){
+  const Q=QUESTIONS[state.i], l=$('#drawerList'); l.innerHTML='';
+  Q.a.forEach((x,k)=>{ const b=document.createElement('button'); b.className=state.open[k]?'done':''; b.innerHTML=`<span>${k+1}. ${x[0]}</span><b>${x[1]}</b>`; b.onclick=()=>{ reveal(k); renderDrawer(); }; l.appendChild(b); });
+}
+$('#btnJudge').onclick=openJudge;
+$('#drawerNo').onclick=strike;
+$('#drawerClose').onclick=()=>$('#drawer').classList.remove('show');
 
 /* ---- list & modals ---- */
 function buildList(){
@@ -367,11 +441,12 @@ $('#btnRevealAll').onclick=revealAll;
 $('#btnNext').onclick=()=>goTo(state.i+1); $('#btnPrev').onclick=()=>goTo(state.i-1);
 $('#btnList').onclick=()=>{ buildList(); $('#mList').classList.add('show'); };
 $('#btnHelp').onclick=()=>$('#mHelp').classList.add('show');
-$('#btnReset').onclick=()=>{ if(confirm('¿Reiniciar marcadores y preguntas jugadas?')){ state.scores={A:0,B:0}; state.played=[]; save(); goTo(0); } };
+$('#btnReset').onclick=()=>{ if(confirm('Reiniciar marcadores y preguntas jugadas?')){ state.scores={A:0,B:0}; state.played=[]; save(); goTo(0); } };
+$('#btnTurn').onclick=()=>{ state.turnMode=state.turnMode==='fallo'?'3':'fallo'; $('#btnTurn').textContent='Turno cambia: '+(state.turnMode==='fallo'?'cada fallo':'3 strikes'); };
 document.querySelectorAll('#mult button').forEach(m=>m.onclick=()=>{ state.mult=+m.dataset.m; render(); });
 ['A','B'].forEach(t=>{
   const card=$('#team'+t), name=$('#name'+t);
-  card.addEventListener('click',e=>{ if(e.target!==name){ state.active=t; render(); } });
+  card.addEventListener('click',e=>{ if(e.target!==name){ if(state.faceoff) buzzIn(t); else { state.active=t; render(); } } });
   name.addEventListener('input',()=>{ $('#lbl'+t).textContent=name.textContent; save(); });
   name.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); name.blur(); } });
   name.addEventListener('blur',()=>{ if(!name.textContent.trim()) name.textContent='Equipo '+t; save(); });
@@ -381,7 +456,10 @@ document.addEventListener('keydown',e=>{
   if(e.target.isContentEditable||/INPUT|TEXTAREA/.test(e.target.tagName)) return;
   const k=e.key;
   if(k==='Escape') return closeModals();
-  if(/^[1-8]$/.test(k)){ const idx=+k-1; if(idx<QUESTIONS[state.i].a.length) reveal(idx); }
+  if(k==='a'||k==='A') buzzIn('A');
+  else if(k==='l'||k==='L') buzzIn('B');
+  else if(k===' ') armBuzzer();
+  else if(/^[1-8]$/.test(k)){ const idx=+k-1; if(idx<QUESTIONS[state.i].a.length) reveal(idx); }
   else if(k==='x'||k==='X') strike();
   else if(k==='q'||k==='Q') award('A');
   else if(k==='p'||k==='P') award('B');

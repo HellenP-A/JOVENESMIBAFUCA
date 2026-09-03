@@ -14,16 +14,15 @@ Versión cristiana de *100 Latinos Dijeron* (Family Feud), pensada para dos equi
 
 1. **Equipos:** por defecto *Guerreros de la Fe* y *JAZAKM*. Haz clic sobre el nombre para cambiarlo. Haz clic en la tarjeta del equipo para marcar quién tiene el turno.
 2. **Enfrentamiento:** un jugador de cada equipo responde; quien dé la respuesta más alta decide si su equipo juega o pasa.
-3. **Ronda:** el equipo en turno dice una respuesta. El presentador la escribe en el campo **Verificar** y pulsa Enter: si está en la lista se revela y suma al marcador "En juego"; si no está, se marca un strike automáticamente (no importan mayúsculas, tildes ni errores pequeños). También se puede revelar a mano con clic o teclas 1–8 y marcar strike con X.
-4. **Robo:** con 3 strikes, el otro equipo tiene una sola oportunidad. Si acierta, se le dan los puntos; si falla, van al equipo original.
-5. **Puntos:** botón "Puntos →" o teclas **Q** (equipo izquierdo) y **P** (equipo derecho).
-6. **Multiplicador:** ×2 o ×3 para que las últimas rondas valgan más.
+3. **Ronda:** el jugador dice una respuesta. El juez pulsa **Revisar respuesta (panel del juez)**: se abre una ventana aparte con las 8 respuestas y sus puntos, que solo ve el juez en la laptop. Si la palabra está en la lista, pulsa esa respuesta y se revela en el tablero con su posición y puntos. Si no está, pulsa **No está en la lista** y se marca un strike. También se puede revelar a mano con clic o teclas 1–8.
+4. **Turno:** con "Turno cambia: cada fallo" (por defecto) el turno pasa al otro equipo con cada respuesta que no está en la lista. Con "Turno cambia: 3 strikes" se juega como en la TV: tres fallos y el otro equipo tiene una oportunidad de robo.
+5. **Puntos:** botón "Puntos para…" o teclas **Q** (equipo izquierdo) y **P** (equipo derecho).
+6. **Multiplicador:** x2 o x3 para que las últimas rondas valgan más.
 
 ### Atajos de teclado
 
 | Tecla | Acción |
 |---|---|
-| Enter | Verificar la respuesta escrita |
 | 1–8 | Revelar respuesta a mano |
 | X | Strike |
 | Q / P | Dar puntos al equipo izquierdo / derecho |
@@ -33,7 +32,8 @@ Versión cristiana de *100 Latinos Dijeron* (Family Feud), pensada para dos equi
 
 ### Consejos para el día del evento
 
-- Abre el juego en la laptop conectada al proyector y pulsa **F11** para pantalla completa.
+- Usa dos pantallas: en Windows pulsa **Win+P → Extender** (en Mac, Preferencias → Pantallas → desactivar duplicado). Deja el tablero en el proyector (F11 para pantalla completa) y el Panel del juez en la pantalla de la laptop, así el público no ve las respuestas.
+- Si el navegador bloquea la ventana del panel, se abre debajo del tablero; en ese caso el juez puede girar la laptop o permitir ventanas emergentes para el sitio.
 - Sube el volumen: los aciertos y strikes tienen sonido.
 - Los marcadores se guardan en el navegador hasta pulsar **Reiniciar**.
 - El banco tiene 20 preguntas; el botón **Lista** permite saltar a cualquiera y marca las ya jugadas.
@@ -46,4 +46,4 @@ Abre el archivo HTML con un editor de texto y busca `const QUESTIONS`. Cada preg
 {q:"Texto de la pregunta", a:[["Respuesta más popular",40],["Otra",25],["Otra",15]]}
 ```
 
-Los puntos de cada pregunta deben sumar 100 o menos. Máximo 8 respuestas por pregunta.
+Cada pregunta tiene 8 respuestas y los puntos suman 100 o menos. Los sinónimos se escriben separados por " / " (ej. `"Ranas / Sapos"`) para que el verificador los acepte.
