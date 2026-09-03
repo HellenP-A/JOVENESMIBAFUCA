@@ -14,7 +14,7 @@ Versión cristiana de *100 Latinos Dijeron* (Family Feud), pensada para dos equi
 
 1. **Equipos:** por defecto *Guerreros de la Fe* y *JAZAKM*. Haz clic sobre el nombre para cambiarlo. Haz clic en la tarjeta del equipo para marcar quién tiene el turno.
 2. **Enfrentamiento:** un jugador de cada equipo responde; quien dé la respuesta más alta decide si su equipo juega o pasa.
-3. **Ronda:** el equipo en turno dice respuestas. Cada acierto se revela (clic en la casilla o teclas 1–8) y suma al marcador "En juego". Cada fallo es un strike (tecla X).
+3. **Ronda:** el equipo en turno dice una respuesta. El presentador la escribe en el campo **Verificar** y pulsa Enter: si está en la lista se revela y suma al marcador "En juego"; si no está, se marca un strike automáticamente (no importan mayúsculas, tildes ni errores pequeños). También se puede revelar a mano con clic o teclas 1–8 y marcar strike con X.
 4. **Robo:** con 3 strikes, el otro equipo tiene una sola oportunidad. Si acierta, se le dan los puntos; si falla, van al equipo original.
 5. **Puntos:** botón "Puntos →" o teclas **Q** (equipo izquierdo) y **P** (equipo derecho).
 6. **Multiplicador:** ×2 o ×3 para que las últimas rondas valgan más.
@@ -23,7 +23,8 @@ Versión cristiana de *100 Latinos Dijeron* (Family Feud), pensada para dos equi
 
 | Tecla | Acción |
 |---|---|
-| 1–8 | Revelar respuesta |
+| Enter | Verificar la respuesta escrita |
+| 1–8 | Revelar respuesta a mano |
 | X | Strike |
 | Q / P | Dar puntos al equipo izquierdo / derecho |
 | R | Revelar todas las respuestas |

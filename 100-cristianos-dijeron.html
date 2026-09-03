@@ -66,6 +66,14 @@
   .slot.empty{visibility:hidden}
   .slot:focus-visible{outline:3px solid var(--gold-hi); outline-offset:2px}
 
+  /* ---------- CHECK ---------- */
+  .check{display:grid; grid-template-columns:1fr auto; gap:10px; align-items:center; max-width:820px; width:100%; margin:0 auto}
+  .check input{font-family:'Nunito'; font-weight:800; font-size:22px; padding:12px 16px; border-radius:12px; border:3px solid #2E5AB8; background:#fff; color:var(--navy); width:100%}
+  .check input:focus{outline:none; border-color:var(--gold); box-shadow:0 0 0 4px rgba(242,183,5,.25)}
+  .check .btn{font-size:18px; padding:12px 18px}
+  .verdict{grid-column:1/-1; text-align:center; min-height:22px; font-size:15px; font-weight:800; letter-spacing:.05em}
+  .verdict.ok{color:#7CF0A6} .verdict.no{color:#FF7A88}
+
   /* ---------- STRIKES ---------- */
   .strikes{display:flex; justify-content:center; gap:14px; align-items:center}
   .x{width:54px; height:54px; border-radius:10px; border:3px solid #3A2A44; display:flex; align-items:center; justify-content:center; font-size:46px; color:#3A2A44; line-height:1; padding-top:4px; transition:all .2s}
@@ -155,6 +163,12 @@
 
   <div class="board" id="board"></div>
 
+  <form class="check" id="checkForm" autocomplete="off">
+    <input type="text" id="answerInput" placeholder="Escribe la respuesta que dijo el jugador…" aria-label="Respuesta">
+    <button class="btn gold" type="submit">Verificar ✓ <kbd>Enter</kbd></button>
+    <div class="verdict" id="verdict"></div>
+  </form>
+
   <div class="strikes" id="strikes">
     <div class="x bebas">X</div><div class="x bebas">X</div><div class="x bebas">X</div>
   </div>
@@ -179,7 +193,7 @@
     <button class="btn ghost" id="btnReset">Reiniciar</button>
   </div>
 </main>
-<footer>Números 1–8 revelan · X strike · Q / P dan los puntos · ← → cambian de pregunta</footer>
+<footer>Escribe la respuesta y Enter para verificar · 1–8 revelan · X strike · Q / P dan los puntos · ← → cambian de pregunta</footer>
 
 <div class="flash" id="flash"></div>
 
@@ -194,7 +208,7 @@
   <h2 class="bebas">Cómo se juega</h2>
   <div class="help">
     <b>Enfrentamiento:</b> un jugador de cada equipo responde; el que dé la respuesta más alta decide si su equipo juega o pasa. Haz clic en el equipo para darle el turno.<br>
-    <b>Ronda:</b> el equipo en turno va diciendo respuestas. Cada acierto se revela (clic en la casilla o tecla <kbd>1</kbd>–<kbd>8</kbd>) y suma al marcador "En juego". Cada fallo es un strike (<kbd>X</kbd>).<br>
+    <b>Ronda:</b> el equipo en turno dice una respuesta. Escríbela en el campo y pulsa <kbd>Enter</kbd> o <b>Verificar</b>: si está en la lista se revela y suma al marcador "En juego"; si no está, se marca un strike automáticamente. No importan mayúsculas, tildes ni pequeños errores de escritura. También puedes revelar a mano con clic o teclas <kbd>1</kbd>–<kbd>8</kbd> y marcar strikes con <kbd>X</kbd>.<br>
     <b>Robo:</b> con 3 strikes, el otro equipo tiene una sola oportunidad. Si acierta, dale los puntos a ese equipo (<kbd>Q</kbd> o <kbd>P</kbd>); si falla, los puntos van al equipo original.<br>
     <b>Multiplicador:</b> usa ×2 o ×3 en las últimas rondas para que valgan más.<br>
     <b>Nombres:</b> haz clic sobre el nombre de un equipo para editarlo.<br>
@@ -206,14 +220,14 @@
 
 <script>
 const QUESTIONS = [
-  {q:"Nombra un personaje de la Biblia que todo el mundo conoce.", a:[["Jesús",32],["Moisés",20],["David",15],["Noé",12],["Pablo",8],["Abraham",7],["María",6]]},
+  {q:"Nombra un personaje de la Biblia que todo el mundo conoce.", a:[["Jesús / Jesucristo",32],["Moisés",20],["David",15],["Noé",12],["Pablo",8],["Abraham",7],["María",6]]},
   {q:"Algo que la gente lleva a la iglesia.", a:[["La Biblia",40],["El celular",18],["La ofrenda",15],["Un cuaderno",10],["Botella de agua",7],["A la familia",6],["A un amigo",4]]},
   {q:"Un libro de la Biblia que empieza con la letra J.", a:[["Juan",35],["Josué",20],["Jueces",14],["Jonás",12],["Jeremías",10],["Job",6],["Judas",3]]},
   {q:"Una excusa para llegar tarde a la iglesia.", a:[["El tráfico",30],["Me quedé dormido",28],["No sabía qué ponerme",15],["El desayuno",12],["La familia no estaba lista",10],["Se me olvidó la hora",5]]},
   {q:"Un milagro que hizo Jesús.", a:[["Resucitar a Lázaro",22],["Caminar sobre el agua",20],["Multiplicar panes y peces",18],["Agua en vino",15],["Sanar ciegos",12],["Calmar la tormenta",8],["Sanar leprosos",5]]},
   {q:"Un fruto del Espíritu.", a:[["Amor",30],["Paz",18],["Paciencia",15],["Gozo",12],["Bondad",8],["Fe",7],["Mansedumbre",5],["Dominio propio",5]]},
   {q:"Algo que hace un joven cristiano en un campamento.", a:[["Fogata",25],["Adorar",20],["Hacer amigos",15],["Juegos",15],["Devocionales",10],["Dormir poco",8],["Comer",7]]},
-  {q:"Un animal que aparece en la Biblia.", a:[["Oveja",25],["Burro",18],["Serpiente",15],["León",12],["Paloma",10],["Gran pez / ballena",8],["Camello",7],["Pez",5]]},
+  {q:"Un animal que aparece en la Biblia.", a:[["Oveja",25],["Burro / Asno",18],["Serpiente",15],["León",12],["Paloma",10],["Gran pez / ballena",8],["Camello",7],["Pez",5]]},
   {q:"Un instrumento del grupo de alabanza.", a:[["Guitarra",30],["Batería",22],["Piano / teclado",20],["Bajo",12],["Pandereta",8],["Violín",5],["La voz",3]]},
   {q:"Algo que un pastor dice mucho cuando predica.", a:[["¡Amén!",30],["Dios te bendiga",20],["Abran sus Biblias",18],["Hermanos…",12],["¡Aleluya!",10],["Ya voy a terminar",10]]},
   {q:"Una mujer de la Biblia.", a:[["María",30],["Ester",20],["Rut",15],["Eva",12],["Sara",10],["Débora",7],["Marta",6]]},
@@ -225,7 +239,7 @@ const QUESTIONS = [
   {q:"Un rey que aparece en la Biblia.", a:[["David",35],["Salomón",25],["Saúl",15],["Herodes",10],["Nabucodonosor",8],["Ezequías",4],["Faraón",3]]},
   {q:"Un discípulo de Jesús.", a:[["Pedro",35],["Juan",20],["Judas",15],["Mateo",10],["Tomás",8],["Andrés",6],["Santiago",6]]},
   {q:"Algo que hace la gente durante un sermón muy largo.", a:[["Se duerme",35],["Mira el celular",25],["Ve la hora",15],["Sale al baño",10],["Come dulces",8],["Dibuja en el boletín",7]]},
-  {q:"Una de las plagas de Egipto.", a:[["Ranas",25],["Langostas",20],["Agua en sangre",18],["Moscas",12],["Granizo",10],["Tinieblas",8],["Muerte de primogénitos",7]]},
+  {q:"Una de las plagas de Egipto.", a:[["Ranas / Sapos",25],["Langostas",20],["Agua en sangre",18],["Moscas",12],["Granizo",10],["Tinieblas",8],["Muerte de primogénitos",7]]},
 ];
 
 const $ = s=>document.querySelector(s);
@@ -294,9 +308,48 @@ function award(t){
 }
 
 function goTo(i){
-  state.i=(i+QUESTIONS.length)%QUESTIONS.length; state.open=[]; state.strikes=0; potLocked=false; render(); closeModals();
+  state.i=(i+QUESTIONS.length)%QUESTIONS.length; state.open=[]; state.strikes=0; potLocked=false; render(); closeModals(); const v=$('#verdict'); v.className='verdict'; v.textContent='';
 }
 function flash(html,ms){ const f=$('#flash'); f.innerHTML=html; f.classList.add('show'); clearTimeout(f._t); f._t=setTimeout(()=>f.classList.remove('show'),ms); }
+
+/* ---- answer checking ---- */
+const STOP=new Set(['el','la','los','las','un','una','unos','unas','de','del','al','a','y','o','en','que','se','su','sus','mi','mis','lo','le','con','por','para']);
+function norm(s){
+  return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9ñ\s]/g,' ')
+    .split(/\s+/).filter(w=>w&&!STOP.has(w)).join(' ');
+}
+function lev(a,b){ const m=a.length,n=b.length; if(!m) return n; if(!n) return m; let p=[...Array(n+1).keys()];
+  for(let i=1;i<=m;i++){ let c=[i]; for(let j=1;j<=n;j++) c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1)); p=c; } return p[n]; }
+function similar(a,b){ if(!a||!b) return false; if(a===b) return true;
+  const tol=Math.max(1,Math.floor(Math.max(a.length,b.length)*0.25));
+  if(lev(a,b)<=tol) return true;
+  // any word of the guess matches any word of the answer (length ≥3)
+  const A=a.split(' '), B=b.split(' ');
+  return A.some(x=>x.length>=3 && B.some(y=>y.length>=3 && (x===y || (x.length>=4&&y.length>=4&&(x.startsWith(y)||y.startsWith(x))) || lev(x,y)<=Math.floor(Math.max(x.length,y.length)*0.25))));
+}
+function findAnswer(guess){
+  const g=norm(guess); if(!g) return -1;
+  const Q=QUESTIONS[state.i];
+  for(let k=0;k<Q.a.length;k++){
+    // answers may hold alternatives separated by " / "
+    const alts=Q.a[k][0].split('/').map(norm);
+    if(alts.some(alt=>similar(g,alt))) return k;
+  }
+  return -1;
+}
+function checkAnswer(){
+  const inp=$('#answerInput'), v=$('#verdict'), guess=inp.value.trim();
+  if(!guess) return;
+  const k=findAnswer(guess);
+  if(k>=0){
+    if(state.open[k]){ v.className='verdict ok'; v.textContent='Ya estaba revelada: #'+(k+1); }
+    else { reveal(k); v.className='verdict ok'; v.textContent='¡Está en la lista! #'+(k+1)+' · '+QUESTIONS[state.i].a[k][0]+' — '+QUESTIONS[state.i].a[k][1]+' pts'; }
+  } else {
+    strike(); v.className='verdict no'; v.textContent='"'+guess+'" no está en la lista. Strike.';
+  }
+  inp.value=''; inp.focus();
+}
+$('#checkForm').addEventListener('submit',e=>{ e.preventDefault(); checkAnswer(); });
 
 /* ---- list & modals ---- */
 function buildList(){
