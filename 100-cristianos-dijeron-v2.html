@@ -111,16 +111,17 @@
   .slot:focus-visible{outline:3px solid var(--gold2); outline-offset:2px}
 
   /* ---------- ANSWER INPUT ---------- */
-  .answer{display:grid; grid-template-columns:1fr auto; gap:10px; align-items:center}
+  .answer{display:grid; grid-template-columns:1fr auto; gap:10px; align-items:stretch}
+  .answer .btn.verify{font-size:clamp(20px,2vw,26px); padding:0 34px; min-width:190px; border-radius:10px; letter-spacing:.06em; text-transform:uppercase}
   .answer input{font-family:var(--font-ui); font-weight:800; font-size:clamp(20px,2vw,28px); padding:10px 16px; border-radius:10px; border:3px solid var(--neon); background:#0A1440; color:#fff; width:100%; box-shadow:0 0 16px rgba(47,168,255,.35), inset 0 0 14px rgba(0,0,0,.5); text-transform:uppercase}
   .answer input::placeholder{color:#6F86C8; text-transform:none; font-weight:600}
   .answer input:focus{outline:none; border-color:var(--gold); box-shadow:0 0 0 4px rgba(245,184,0,.25)}
-  .verdict{grid-column:1/-1; text-align:center; min-height:26px; font-family:var(--font-display); font-size:20px; letter-spacing:.04em}
+  .verdict{grid-column:1/-1; text-align:center; min-height:30px; font-size:22px; padding:2px 0; font-family:var(--font-display); font-size:20px; letter-spacing:.04em}
   .verdict.ok{color:#5CFF9D; text-shadow:0 0 14px rgba(92,255,157,.7)} .verdict.no{color:var(--red); text-shadow:0 0 14px rgba(255,43,58,.7)}
   @media (max-width:900px){ .answer{grid-template-columns:1fr} }
 
   /* ---------- PODIUM / BUZZER ---------- */
-  .podium{display:flex; justify-content:center; align-items:flex-end; padding:6px 20px 0; position:relative}
+  .podium{display:flex; justify-content:center; align-items:flex-end; padding:58px 20px 0; position:relative}
   .pod{
     position:relative; width:min(420px,90%); padding:0 0 14px; text-align:center;
     background:linear-gradient(180deg,#1A1F3A,#0A0D22); border:3px solid #2A3A7A; border-radius:22px 22px 10px 10px;
@@ -226,13 +227,13 @@
     <div class="board" id="board"></div>
     <form class="answer" id="answerForm" autocomplete="off">
       <input type="text" id="answerInput" placeholder="Escribe la respuesta del participante y pulsa Enter" aria-label="Respuesta del participante">
-      <button class="btn gold big" type="submit">Verificar</button>
+      <button class="btn gold verify" type="submit">Verificar</button>
       <div class="verdict" id="verdict"></div>
     </form>
   </div>
 
   <div class="team B" id="teamB" data-team="B">
-    <div class="nameplate"><div class="name display" contenteditable="true" spellcheck="false" id="nameB">JAZAKM</div></div>
+    <div class="nameplate"><div class="name display" contenteditable="true" spellcheck="false" id="nameB">JASAK</div></div>
     <div class="lbl">PUNTOS</div>
     <div class="scorebox"><div class="score display" id="scoreB">0</div></div>
     <div class="lbl">ERRORES</div>
@@ -264,13 +265,13 @@
   <div class="mult" id="mult"><button data-m="1" class="on">x1</button><button data-m="2">x2</button><button data-m="3">x3</button></div>
   <span class="sep"></span>
   <button class="btn gold" id="btnAwardA">Puntos para <span id="lblA">Guerreros de la Fe</span> <kbd>Q</kbd></button>
-  <button class="btn gold" id="btnAwardB">Puntos para <span id="lblB">JAZAKM</span> <kbd>P</kbd></button>
+  <button class="btn gold" id="btnAwardB">Puntos para <span id="lblB">JASAK</span> <kbd>P</kbd></button>
   <span class="sep"></span>
   <button class="btn" id="btnRevealAll">Revelar todo <kbd>R</kbd></button>
   <button class="btn" id="btnPrev">Anterior <kbd>&larr;</kbd></button>
   <button class="btn green" id="btnNext">Siguiente <kbd>&rarr;</kbd></button>
   <span class="sep"></span>
-  <button class="btn ghost" id="btnTurn">Turno cambia: 3 strikes</button>
+  <button class="btn ghost" id="btnTurn">Turno cambia: cada fallo</button>
   <button class="btn ghost" id="btnList">Lista</button>
   <button class="btn ghost" id="btnHelp">Ayuda</button>
   <button class="btn ghost" id="btnReset">Reiniciar</button>
@@ -288,10 +289,10 @@
 <div class="modal" id="mHelp"><div class="card">
   <h2>COMO SE JUEGA</h2>
   <div class="help">
-    <b>1. Enfrentamiento:</b> un jugador de cada equipo se para frente a la laptop. El presentador lee la pregunta y pulsa el boton rojo del podio (o <kbd>Espacio</kbd>). El primero que presione su tecla (<kbd>A</kbd> equipo izquierdo, <kbd>L</kbd> equipo derecho) gana el pulsador y responde primero. Si su respuesta esta en la lista, su equipo toma el control. Tambien puedes tocar el panel de un equipo para darle el turno a mano.<br>
-    <b>2. Ronda:</b> el jugador dice una respuesta. El presentador la escribe en la casilla bajo el tablero y pulsa <kbd>Enter</kbd>. El sistema la compara con la lista (no importan mayusculas, tildes ni errores pequenos): si esta, se voltea en el tablero con su posicion y puntos; si no esta, aparece una X gigante en pantalla y se enciende una X en ERRORES del equipo en turno. Tambien puedes usar el <b>Panel del juez</b> (ventana aparte con las 8 respuestas) para revelar con un clic.<br>
-    <b>3. Robo:</b> con 3 X el otro equipo tiene una sola oportunidad. Si acierta, se lleva los puntos (<kbd>Q</kbd> o <kbd>P</kbd>); si falla, los puntos van al equipo original. Con "Turno cambia: cada fallo" el turno pasa con cada X.<br>
-    <b>4. Puntos:</b> lo acumulado en "En juego" se entrega con "Puntos para..." y se revelan las respuestas que faltaban. Usa x2 o x3 en las ultimas rondas.<br>
+    <b>1. Enfrentamiento:</b> el presentador lee la pregunta y pulsa el boton rojo del podio (o <kbd>Espacio</kbd>). Un jugador de cada equipo esta frente al teclado: el primero que presione su tecla (<kbd>A</kbd> equipo izquierdo, <kbd>L</kbd> equipo derecho) responde primero; luego responde el otro. El presentador escribe cada respuesta y el sistema las revela. <b>El presentador toca el panel del equipo cuya respuesta tuvo mas puntos</b>: ese equipo queda "EN TURNO" e inicia el juego.<br>
+    <b>2. Ronda:</b> el equipo en turno sigue diciendo respuestas. El presentador escribe cada una en la casilla bajo el tablero y pulsa <kbd>Enter</kbd>: si esta en la lista, se voltea con su posicion y puntos; si no esta, aparece una X gigante, se enciende una X en ERRORES de ese equipo y <b>el turno pasa automaticamente al otro equipo</b>, que continua hasta que falle. Asi se alternan hasta descubrir todas las respuestas o pasar de pregunta.<br>
+    <b>3. Puntos:</b> lo acumulado en "En juego" se entrega con "Puntos para..." (<kbd>Q</kbd> equipo izquierdo, <kbd>P</kbd> equipo derecho) y se revelan las respuestas que faltaban. Usa x2 o x3 en las ultimas rondas. Con el boton "Turno cambia" puedes pasar al modo TV (3 errores y robo).<br>
+    <b>Panel del juez:</b> ventana aparte con las 8 respuestas y sus puntos, por si prefieres revelar con un clic en vez de escribir.<br>
     <b>Dos pantallas:</b> Win+P y "Extender": tablero en el proyector (F11 para pantalla completa) y Panel del juez en la laptop. Si el navegador bloquea la ventana, el panel se abre debajo del tablero.<br>
     <b>Preguntas:</b> 100 preguntas principales (1-100) y 30 extra (101-130) para practicar y aprender la app. Usa <b>Lista</b> para saltar a cualquiera.<br>
     <b>Nombres:</b> clic sobre el nombre del equipo para editarlo. Los marcadores se guardan en este navegador hasta pulsar "Reiniciar".
@@ -434,11 +435,12 @@ const QUESTIONS = [
 ];
 
 const $ = s=>document.querySelector(s);
-const state = { i:0, scores:{A:0,B:0}, open:[], strikes:0, mult:1, active:null, played:[], turnMode:'3', faceoff:false };
+const state = { i:0, scores:{A:0,B:0}, open:[], errors:{A:0,B:0}, mult:1, active:null, played:[], turnMode:'fallo', faceoff:false };
+Object.defineProperty(state,'strikes',{get(){ return state.errors[state.active||'A']; }, set(v){ state.errors[state.active||'A']=v; }});
 let potLocked=false;
 
 function save(){ try{ localStorage.setItem('cd100v2', JSON.stringify({scores:state.scores, played:state.played, names:[$('#nameA').textContent,$('#nameB').textContent]})); }catch(e){} }
-function load(){ try{ const d=JSON.parse(localStorage.getItem('cd100v2')||'null'); if(d){ state.scores=d.scores||state.scores; state.played=d.played||[]; if(d.names){ $('#nameA').textContent=d.names[0]; $('#nameB').textContent=d.names[1]; } } }catch(e){} }
+function load(){ try{ const d=JSON.parse(localStorage.getItem('cd100v2')||'null'); if(d){ state.scores=d.scores||state.scores; state.played=d.played||[]; if(d.names){ $('#nameA').textContent=d.names[0]; $('#nameB').textContent=d.names[1]==='JAZAKM'?'JASAK':d.names[1]; } } }catch(e){} }
 
 /* ---- sound ---- */
 let ac=null;
@@ -477,8 +479,7 @@ function render(){
   updatePot();
 }
 function renderStrikes(){
-  const t=state.active||'A';
-  ['A','B'].forEach(x=>document.querySelectorAll('#err'+x+' .x').forEach((el,k)=>el.classList.toggle('on', x===t && k<state.strikes)));
+  ['A','B'].forEach(x=>document.querySelectorAll('#err'+x+' .x').forEach((el,k)=>el.classList.toggle('on', k<state.errors[x])));
 }
 function pot(){ if(potLocked) return 0; const Q=QUESTIONS[state.i]; return Q.a.reduce((s,a,k)=>s+(state.open[k]?a[1]:0),0)*state.mult; }
 function updatePot(){ $('#pot').textContent=pot(); }
@@ -494,19 +495,19 @@ function revealAll(){ QUESTIONS[state.i].a.forEach((_,k)=>{ if(!state.open[k]) r
 
 function otherTeam(){ return state.active==='A'?'B':'A'; }
 function passTurn(){
-  state.active=otherTeam(); state.strikes=0; render();
+  state.active=otherTeam(); render();
   const name=$(state.active==='A'?'#nameA':'#nameB').textContent;
   setTimeout(()=>flash(`<div class="award" style="color:#fff">TURNO<small style="color:var(--gold2)">${name}</small></div>`,1400),950);
 }
 function strike(){
   if(state.strikes>=3) return;
   if(!state.active) state.active='A';
-  state.strikes++; sfx.buzz(); renderStrikes();
+  state.errors[state.active]++; sfx.buzz(); renderStrikes();
   flash(`<div class="bigx">${'X'.repeat(state.strikes)}</div>`,900);
   if(state.turnMode==='fallo' || state.strikes===3) setTimeout(passTurn,900);
   updateJudge();
 }
-function unstrike(){ if(state.strikes>0){ state.strikes--; renderStrikes(); updateJudge(); } }
+function unstrike(){ const t=state.active||'A'; if(state.errors[t]>0){ state.errors[t]--; renderStrikes(); updateJudge(); } }
 
 function award(t){
   const p=pot(); if(p===0) return;
@@ -519,7 +520,7 @@ function award(t){
 }
 
 function goTo(i){
-  state.i=(i+QUESTIONS.length)%QUESTIONS.length; state.open=[]; state.strikes=0; potLocked=false; state.active=null; clearBuzz();
+  state.i=(i+QUESTIONS.length)%QUESTIONS.length; state.open=[]; state.errors={A:0,B:0}; potLocked=false; state.active=null; clearBuzz();
   render(); closeModals(); updateJudge(); const v=$('#verdict'); v.className='verdict'; v.textContent='';
 }
 function flash(html,ms){ const f=$('#flash'); f.innerHTML=html; f.classList.add('show'); clearTimeout(f._t); f._t=setTimeout(()=>f.classList.remove('show'),ms); }
@@ -535,7 +536,7 @@ function buzzIn(t){
   if(!state.faceoff) return;
   state.faceoff=false; sfx.buzzer();
   $('#buzz').classList.remove('armed'); $('#team'+t).classList.add('buzzed');
-  state.active=t; state.strikes=0; render();
+  state.active=t; render();
   const name=$(t==='A'?'#nameA':'#nameB').textContent;
   $('#buzzmsg').textContent=name+' gano el pulsador';
   flash(`<div class="award">${name}<small>gano el pulsador - responde primero</small></div>`,1800);
@@ -577,7 +578,7 @@ function judgeHTML(){
   const rows=Q.a.map((x,k)=>`<button class="ans ${state.open[k]?'done':''}" data-k="${k}"><span>${k+1}. ${x[0]}</span><b>${x[1]}</b></button>`).join('');
   return `<h2>Pregunta ${state.i+1} / ${QUESTIONS.length} &nbsp;|&nbsp; Turno: ${state.active?$(state.active==='A'?'#nameA':'#nameB').textContent:'-'}</h2><p class="q">${Q.q}</p>
   <div class="list">${rows}</div>
-  <button class="no" id="jNo">NO ESTA EN LA LISTA - STRIKE (${state.strikes}/3)</button>
+  <button class="no" id="jNo">NO ESTA EN LA LISTA - STRIKE (errores: ${state.errors.A} / ${state.errors.B})</button>
   <div class="bar"><span>En juego: <b>${pot()}</b></span>
     <button data-act="A">Puntos para ${$('#nameA').textContent} (${state.scores.A})</button>
     <button data-act="B">Puntos para ${$('#nameB').textContent} (${state.scores.B})</button></div>
@@ -648,7 +649,7 @@ $('#btnTurn').onclick=()=>{ state.turnMode=state.turnMode==='fallo'?'3':'fallo';
 document.querySelectorAll('#mult button').forEach(m=>m.onclick=()=>{ state.mult=+m.dataset.m; render(); });
 ['A','B'].forEach(t=>{
   const card=$('#team'+t), name=$('#name'+t);
-  card.addEventListener('click',e=>{ if(e.target!==name){ if(state.faceoff) buzzIn(t); else { state.active=t; state.strikes=0; render(); } } });
+  card.addEventListener('click',e=>{ if(e.target!==name){ if(state.faceoff) buzzIn(t); else { state.active=t; render(); flash(`<div class="award" style="color:#fff">TURNO<small style="color:var(--gold2)">${$('#name'+t).textContent}</small></div>`,1200); } } });
   name.addEventListener('input',()=>{ $('#lbl'+t).textContent=name.textContent; save(); });
   name.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); name.blur(); } });
   name.addEventListener('blur',()=>{ if(!name.textContent.trim()) name.textContent='Equipo '+t; save(); });

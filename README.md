@@ -17,10 +17,10 @@ Hay dos versiones con la misma lógica de juego; elige la que más les guste:
 
 ### Cómo se juega
 
-1. **Equipos:** por defecto *Guerreros de la Fe* y *JAZAKM*. Haz clic sobre el nombre para cambiarlo. Haz clic en la tarjeta del equipo para marcar quién tiene el turno.
-2. **Enfrentamiento (pulsador):** el presentador lee la pregunta y pulsa el botón rojo (o barra espaciadora). Un jugador de cada equipo está frente al teclado: el primero que presione **A** (equipo izquierdo) o **L** (equipo derecho) gana el pulsador y responde primero; su equipo queda "EN TURNO".
-3. **Ronda:** el jugador dice una respuesta. En la **Versión 2**, el presentador la escribe en la casilla bajo el tablero y pulsa Enter: el sistema la compara con la lista (no importan mayúsculas, tildes ni errores pequeños); si está, se voltea en el tablero con su posición y puntos; si no está, aparece una X gigante en pantalla y se enciende una X en ERRORES del equipo en turno. En ambas versiones también existe el **Panel del juez** (ventana aparte con las 8 respuestas) para revelar con un clic o marcar "No está en la lista".
-4. **Turno:** por defecto se juega como en la TV ("Turno cambia: 3 strikes"): tres fallos y el otro equipo tiene una oportunidad de robo. Con "Turno cambia: cada fallo" el turno pasa al otro equipo con cada respuesta que no está en la lista.
+1. **Equipos:** por defecto *Guerreros de la Fe* y *JASAK*. Haz clic sobre el nombre para cambiarlo. Haz clic en la tarjeta del equipo para marcar quién tiene el turno.
+2. **Enfrentamiento (pulsador):** el presentador lee la pregunta y pulsa el botón rojo (o barra espaciadora). Un jugador de cada equipo está frente al teclado: el primero que presione **A** (equipo izquierdo) o **L** (equipo derecho) responde primero; luego responde el otro. El presentador escribe cada respuesta y el sistema la revela. **El presentador toca el panel del equipo cuya respuesta tuvo más puntos**: ese equipo queda "EN TURNO" e inicia el juego.
+3. **Ronda:** el equipo en turno sigue diciendo respuestas. El presentador escribe cada una en la casilla bajo el tablero y pulsa Enter (no importan mayúsculas, tildes ni errores pequeños): si está, se voltea con su posición y puntos; si no está, aparece una X gigante, se enciende una X en ERRORES de ese equipo y **el turno pasa automáticamente al otro equipo**, que continúa hasta fallar. También existe el **Panel del juez** (ventana aparte con las 8 respuestas) para revelar con un clic.
+4. **Turno:** por defecto el turno cambia con cada fallo. Con el botón "Turno cambia" se puede pasar al modo TV: tres errores y el otro equipo tiene una oportunidad de robo.
 5. **Puntos:** botón "Puntos para…" o teclas **Q** (equipo izquierdo) y **P** (equipo derecho).
 6. **Multiplicador:** x2 o x3 para que las últimas rondas valgan más.
 

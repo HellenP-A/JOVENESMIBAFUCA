@@ -179,7 +179,7 @@
   </div>
 
   <div class="team" id="teamB" data-team="B">
-    <div class="name bebas" contenteditable="true" spellcheck="false" id="nameB">JAZAKM</div>
+    <div class="name bebas" contenteditable="true" spellcheck="false" id="nameB">JASAK</div>
     <div class="score bebas" id="scoreB">0</div>
     <div class="pts">puntos</div>
     <div class="key">Pulsador: <kbd>L</kbd></div>
@@ -208,13 +208,13 @@
   </div>
   <span class="sep"></span>
   <button class="btn gold" id="btnAwardA">Puntos para <span id="lblA">Guerreros de la Fe</span> <kbd>Q</kbd></button>
-  <button class="btn gold" id="btnAwardB">Puntos para <span id="lblB">JAZAKM</span> <kbd>P</kbd></button>
+  <button class="btn gold" id="btnAwardB">Puntos para <span id="lblB">JASAK</span> <kbd>P</kbd></button>
   <span class="sep"></span>
   <button class="btn" id="btnRevealAll">Revelar todo <kbd>R</kbd></button>
   <button class="btn" id="btnPrev">Anterior <kbd>&larr;</kbd></button>
   <button class="btn green" id="btnNext">Siguiente <kbd>&rarr;</kbd></button>
   <span class="sep"></span>
-  <button class="btn ghost" id="btnTurn">Turno cambia: 3 strikes</button>
+  <button class="btn ghost" id="btnTurn">Turno cambia: cada fallo</button>
   <button class="btn ghost" id="btnList">Lista</button>
   <button class="btn ghost" id="btnHelp">Ayuda</button>
   <button class="btn ghost" id="btnReset">Reiniciar</button>
@@ -268,11 +268,11 @@ const QUESTIONS = [
 ];
 
 const $ = s=>document.querySelector(s);
-const state = { i:0, scores:{A:0,B:0}, open:[], strikes:0, mult:1, active:null, played:[], turnMode:'3', faceoff:false };
+const state = { i:0, scores:{A:0,B:0}, open:[], strikes:0, mult:1, active:null, played:[], turnMode:'fallo', faceoff:false };
 let potLocked=false;
 
 function save(){ try{ localStorage.setItem('cd100', JSON.stringify({scores:state.scores, played:state.played, names:[$('#nameA').textContent,$('#nameB').textContent]})); }catch(e){} }
-function load(){ try{ const d=JSON.parse(localStorage.getItem('cd100')||'null'); if(d){ state.scores=d.scores||state.scores; state.played=d.played||[]; if(d.names){ $('#nameA').textContent=d.names[0]; $('#nameB').textContent=d.names[1]; } } }catch(e){} }
+function load(){ try{ const d=JSON.parse(localStorage.getItem('cd100')||'null'); if(d){ state.scores=d.scores||state.scores; state.played=d.played||[]; if(d.names){ $('#nameA').textContent=d.names[0]; $('#nameB').textContent=d.names[1]==='JAZAKM'?'JASAK':d.names[1]; } } }catch(e){} }
 
 /* ---- sound ---- */
 let ac=null;
