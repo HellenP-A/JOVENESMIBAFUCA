@@ -155,6 +155,12 @@
   .btn.big{font-size:16px; padding:10px 18px}
   .btn kbd{font-family:inherit; font-size:10px; opacity:.75; margin-left:5px; border:1px solid currentColor; border-radius:4px; padding:0 4px}
   .sep{width:1px; height:24px; background:#2A3A7A; margin:0 3px}
+  .adj{display:inline-flex; align-items:center; gap:4px; font-size:13px; color:#8FA8E8; text-transform:uppercase; letter-spacing:.05em}
+  .adj .btn{padding:6px 9px; font-size:13px}
+  .scorebox{position:relative}
+  .scorebox.hit{box-shadow:0 0 0 3px #0A1440, 0 0 40px var(--gold2), 0 0 80px rgba(245,184,0,.8)}
+  .float{position:absolute; left:50%; top:-10px; transform:translateX(-50%); font-family:var(--font-display); font-size:clamp(30px,3.5vw,56px); color:var(--gold2); text-shadow:0 0 20px rgba(245,184,0,.9), 0 3px 0 var(--gold-dark); animation:floatup 1.2s ease-out forwards; pointer-events:none}
+  @keyframes floatup{from{opacity:1; transform:translate(-50%,0) scale(.6)} to{opacity:0; transform:translate(-50%,-70px) scale(1.2)}}
   .mult{display:flex; border-radius:8px; overflow:hidden; border:1px solid #2A3A7A}
   .mult button{background:transparent; color:#8FA8E8; border:0; padding:7px 11px; font-family:var(--font-ui); font-weight:800; cursor:pointer}
   .mult button.on{background:var(--gold); color:#1A0A45}
@@ -226,7 +232,7 @@
   </div>
 
   <div class="center">
-    <div class="qmeta"><span>PREGUNTA <b id="qnum">1 / 20</b></span><span>EN JUEGO <b id="pot">0</b></span></div>
+    <div class="qmeta"><span>PREGUNTA <b id="qnum">1 / 20</b></span><span>REVELADO <b id="pot">0</b> PTS</span></div>
     <div class="question" id="qtext"></div>
     <div class="board" id="board"></div>
     <form class="answer" id="answerForm" autocomplete="off">
@@ -268,8 +274,8 @@
   <span class="sep"></span>
   <div class="mult" id="mult"><button data-m="1" class="on">x1</button><button data-m="2">x2</button><button data-m="3">x3</button></div>
   <span class="sep"></span>
-  <button class="btn gold" id="btnAwardA">Puntos para <span id="lblA">Guerreros de la Fe</span> <kbd>Q</kbd></button>
-  <button class="btn gold" id="btnAwardB">Puntos para <span id="lblB">JASAK</span> <kbd>P</kbd></button>
+  <span class="adj"><span id="lblA">Guerreros de la Fe</span> <button class="btn" data-adj="A" data-d="-5">-5</button><button class="btn" data-adj="A" data-d="5">+5</button></span>
+  <span class="adj"><span id="lblB">JASAK</span> <button class="btn" data-adj="B" data-d="-5">-5</button><button class="btn" data-adj="B" data-d="5">+5</button></span>
   <span class="sep"></span>
   <button class="btn" id="btnRevealAll">Revelar todo <kbd>R</kbd></button>
   <button class="btn" id="btnPrev">Anterior <kbd>&larr;</kbd></button>
@@ -306,7 +312,7 @@
   <div class="help">
     <b>1. Enfrentamiento:</b> el presentador lee la pregunta y pulsa el boton rojo del podio (o <kbd>Espacio</kbd>). Un jugador de cada equipo esta frente al teclado: el primero que presione su tecla (<kbd>A</kbd> equipo izquierdo, <kbd>L</kbd> equipo derecho) responde primero; luego responde el otro. El presentador escribe cada respuesta y el sistema las revela. <b>El presentador toca el panel del equipo cuya respuesta tuvo mas puntos</b>: ese equipo queda "EN TURNO" e inicia el juego.<br>
     <b>2. Ronda:</b> el equipo en turno sigue diciendo respuestas. El presentador escribe cada una en la casilla bajo el tablero y pulsa <kbd>Enter</kbd>: si esta en la lista, se voltea con su posicion y puntos; si no esta, aparece una X gigante, se enciende una X en ERRORES de ese equipo y <b>el turno pasa automaticamente al otro equipo</b>, que continua hasta que falle. Asi se alternan hasta descubrir todas las respuestas o pasar de pregunta.<br>
-    <b>3. Puntos:</b> lo acumulado en "En juego" se entrega con "Puntos para..." (<kbd>Q</kbd> equipo izquierdo, <kbd>P</kbd> equipo derecho) y se revelan las respuestas que faltaban. Usa x2 o x3 en las ultimas rondas. Con el boton "Turno cambia" puedes pasar al modo TV (3 errores y robo).<br>
+    <b>3. Puntos:</b> se suman solos. Cada respuesta acertada por el equipo EN TURNO se suma de inmediato a su marcador (con el multiplicador x2 o x3 si esta activo). Las respuestas del enfrentamiento se acreditan al equipo que el presentador elija para iniciar. "Revelar todo" al final de la pregunta no suma puntos. Si hay que corregir, usa los botones -5 / +5 de cada equipo. Con "Turno cambia" puedes pasar al modo TV (3 errores y robo).<br>
     <b>Panel del juez:</b> ventana aparte con las 8 respuestas y sus puntos, por si prefieres revelar con un clic en vez de escribir.<br>
     <b>Dos pantallas:</b> Win+P y "Extender": tablero en el proyector (F11 para pantalla completa) y Panel del juez en la laptop. Si el navegador bloquea la ventana, el panel se abre debajo del tablero.<br>
     <b>Preguntas:</b> 100 preguntas principales (1-100) y 30 extra (101-130) para practicar y aprender la app. Usa <b>Lista</b> para saltar a cualquiera.<br>
@@ -450,9 +456,8 @@ const QUESTIONS = [
 ];
 
 const $ = s=>document.querySelector(s);
-const state = { i:0, scores:{A:0,B:0}, open:[], errors:{A:0,B:0}, mult:1, active:null, played:[], turnMode:'fallo', faceoff:false };
+const state = { i:0, scores:{A:0,B:0}, open:[], credited:[], errors:{A:0,B:0}, mult:1, active:null, played:[], turnMode:'fallo', faceoff:false };
 Object.defineProperty(state,'strikes',{get(){ return state.errors[state.active||'A']; }, set(v){ state.errors[state.active||'A']=v; }});
-let potLocked=false;
 
 function save(){ try{ localStorage.setItem('cd100v2', JSON.stringify({scores:state.scores, played:state.played, names:[$('#nameA').textContent,$('#nameB').textContent]})); }catch(e){} }
 function load(){ try{ const d=JSON.parse(localStorage.getItem('cd100v2')||'null'); if(d){ state.scores=d.scores||state.scores; state.played=d.played||[]; if(d.names){ $('#nameA').textContent=d.names[0]; $('#nameB').textContent=d.names[1]==='JAZAKM'?'JASAK':d.names[1]; } } }catch(e){} }
@@ -496,17 +501,35 @@ function render(){
 function renderStrikes(){
   ['A','B'].forEach(x=>document.querySelectorAll('#err'+x+' .x').forEach((el,k)=>el.classList.toggle('on', k<state.errors[x])));
 }
-function pot(){ if(potLocked) return 0; const Q=QUESTIONS[state.i]; return Q.a.reduce((s,a,k)=>s+(state.open[k]?a[1]:0),0)*state.mult; }
+function pot(){ const Q=QUESTIONS[state.i]; return Q.a.reduce((s,a,k)=>s+(state.open[k]?a[1]:0),0)*state.mult; }
 function updatePot(){ $('#pot').textContent=pot(); }
 function slotEl(idx){ return document.querySelectorAll('#board .slot')[(idx%Math.ceil(QUESTIONS[state.i].a.length/2))*2+Math.floor(idx/Math.ceil(QUESTIONS[state.i].a.length/2))]; }
 
-function reveal(idx){
+function reveal(idx,credit=true){
   if(state.open[idx]) return;
   state.open[idx]=true; sfx.ding();
   const el=slotEl(idx); if(el) el.classList.add('open');
+  if(credit && state.active) creditAnswer(idx,state.active);
   updatePot(); updateJudge();
 }
-function revealAll(){ QUESTIONS[state.i].a.forEach((_,k)=>{ if(!state.open[k]) reveal(k); }); }
+function creditAnswer(idx,t){
+  if(state.credited[idx]) return;
+  state.credited[idx]=true;
+  const pts=QUESTIONS[state.i].a[idx][1]*state.mult;
+  state.scores[t]+=pts; save();
+  $('#score'+t).textContent=state.scores[t];
+  bump(t,'+'+pts);
+  if(!state.played.includes(state.i)){ state.played.push(state.i); save(); }
+}
+function creditPending(t){ // face-off answers revealed before a team was chosen go to the team that takes control
+  QUESTIONS[state.i].a.forEach((_,k)=>{ if(state.open[k]&&!state.credited[k]) creditAnswer(k,t); });
+}
+function bump(t,txt){
+  const box=$('#team'+t+' .scorebox'); const f=document.createElement('div'); f.className='float'; f.textContent=txt; box.appendChild(f);
+  box.classList.add('hit'); setTimeout(()=>box.classList.remove('hit'),600); setTimeout(()=>f.remove(),1300);
+}
+function adjust(t,d){ state.scores[t]=Math.max(0,state.scores[t]+d); save(); render(); bump(t,(d>0?'+':'')+d); updateJudge(); }
+function revealAll(){ QUESTIONS[state.i].a.forEach((_,k)=>{ if(!state.open[k]) reveal(k,false); }); }
 
 function otherTeam(){ return state.active==='A'?'B':'A'; }
 function passTurn(){
@@ -524,18 +547,8 @@ function strike(){
 }
 function unstrike(){ const t=state.active||'A'; if(state.errors[t]>0){ state.errors[t]--; renderStrikes(); updateJudge(); } }
 
-function award(t){
-  const p=pot(); if(p===0) return;
-  state.scores[t]+=p; sfx.win();
-  const name=$(t==='A'?'#nameA':'#nameB').textContent;
-  flash(`<div class="award">+${p}<small>${name}</small></div>`,1500);
-  if(!state.played.includes(state.i)) state.played.push(state.i);
-  potLocked=true; save(); render();
-  setTimeout(revealAll,600);
-}
-
 function goTo(i){
-  state.i=(i+QUESTIONS.length)%QUESTIONS.length; state.open=[]; state.errors={A:0,B:0}; potLocked=false; state.active=null; clearBuzz();
+  state.i=(i+QUESTIONS.length)%QUESTIONS.length; state.open=[]; state.credited=[]; state.errors={A:0,B:0}; state.active=null; clearBuzz();
   render(); closeModals(); updateJudge(); const v=$('#verdict'); v.className='verdict'; v.textContent='';
 }
 function flash(html,ms){ const f=$('#flash'); f.innerHTML=html; f.classList.add('show'); clearTimeout(f._t); f._t=setTimeout(()=>f.classList.remove('show'),ms); }
@@ -594,9 +607,9 @@ function judgeHTML(){
   return `<h2>Pregunta ${state.i+1} / ${QUESTIONS.length} &nbsp;|&nbsp; Turno: ${state.active?$(state.active==='A'?'#nameA':'#nameB').textContent:'-'}</h2><p class="q">${Q.q}</p>
   <div class="list">${rows}</div>
   <button class="no" id="jNo">NO ESTA EN LA LISTA - STRIKE (errores: ${state.errors.A} / ${state.errors.B})</button>
-  <div class="bar"><span>En juego: <b>${pot()}</b></span>
-    <button data-act="A">Puntos para ${$('#nameA').textContent} (${state.scores.A})</button>
-    <button data-act="B">Puntos para ${$('#nameB').textContent} (${state.scores.B})</button></div>
+  <div class="bar"><span>${$('#nameA').textContent}: <b>${state.scores.A}</b></span><button data-act="A-">-5</button><button data-act="A+">+5</button></div>
+  <div class="bar"><span>${$('#nameB').textContent}: <b>${state.scores.B}</b></span><button data-act="B-">-5</button><button data-act="B+">+5</button></div>
+  <div class="bar"><span>Turno: <b>${state.active?$(state.active==='A'?'#nameA':'#nameB').textContent:'sin elegir'}</b></span><button data-act="tA">Turno ${$('#nameA').textContent}</button><button data-act="tB">Turno ${$('#nameB').textContent}</button></div>
   <div class="bar"><button data-act="buzz">Enfrentamiento</button><button data-act="prev">Anterior</button><button data-act="next">Siguiente pregunta</button><button data-act="all">Revelar todo</button></div>`;
 }
 function judgeCSS(){ return `<meta charset="utf-8"><title>Panel del juez</title><style>
@@ -616,7 +629,8 @@ function updateJudge(){
 function judgeAction(el){
   if(el.classList.contains('ans')){ reveal(+el.dataset.k); }
   else if(el.id==='jNo'){ strike(); }
-  else if(el.dataset.act==='A') award('A'); else if(el.dataset.act==='B') award('B');
+  else if(el.dataset.act==='A+') adjust('A',5); else if(el.dataset.act==='A-') adjust('A',-5); else if(el.dataset.act==='B+') adjust('B',5); else if(el.dataset.act==='B-') adjust('B',-5);
+  else if(el.dataset.act==='tA'){ state.active='A'; creditPending('A'); render(); } else if(el.dataset.act==='tB'){ state.active='B'; creditPending('B'); render(); }
   else if(el.dataset.act==='prev') goTo(state.i-1); else if(el.dataset.act==='next') goTo(state.i+1);
   else if(el.dataset.act==='all') revealAll(); else if(el.dataset.act==='buzz') armBuzzer(); else return;
   updateJudge();
@@ -654,7 +668,7 @@ document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{ i
 
 /* ---- wiring ---- */
 $('#btnStrike').onclick=strike; $('#btnUnstrike').onclick=unstrike;
-$('#btnAwardA').onclick=()=>award('A'); $('#btnAwardB').onclick=()=>award('B');
+document.querySelectorAll('[data-adj]').forEach(b=>b.onclick=()=>adjust(b.dataset.adj,+b.dataset.d));
 $('#btnRevealAll').onclick=revealAll;
 $('#btnNext').onclick=()=>goTo(state.i+1); $('#btnPrev').onclick=()=>goTo(state.i-1);
 $('#btnList').onclick=()=>{ buildList(); $('#mList').classList.add('show'); };
@@ -663,7 +677,7 @@ $('#btnReset').onclick=()=>{ if(confirm('Reiniciar marcadores y preguntas jugada
 $('#btnTurn').onclick=()=>{ state.turnMode=state.turnMode==='fallo'?'3':'fallo'; $('#btnTurn').textContent='Turno cambia: '+(state.turnMode==='fallo'?'cada fallo':'3 strikes'); };
 document.querySelectorAll('#mult button').forEach(m=>m.onclick=()=>{ state.mult=+m.dataset.m; render(); });
 ['A','B'].forEach(t=>{
-  $('#team'+t).addEventListener('click',()=>{ if(state.faceoff) buzzIn(t); else { state.active=t; render(); flash(`<div class="award" style="color:#fff">TURNO<small style="color:var(--gold2)">${$('#name'+t).textContent}</small></div>`,1200); } });
+  $('#team'+t).addEventListener('click',()=>{ if(state.faceoff) buzzIn(t); else { state.active=t; creditPending(t); render(); flash(`<div class="award" style="color:#fff">TURNO<small style="color:var(--gold2)">${$('#name'+t).textContent}</small></div>`,1200); } });
 });
 $('#btnNames').onclick=()=>{ $('#inNameA').value=$('#nameA').textContent; $('#inNameB').value=$('#nameB').textContent; $('#mNames').classList.add('show'); $('#inNameA').focus(); };
 $('#namesForm').addEventListener('submit',e=>{
@@ -681,8 +695,6 @@ document.addEventListener('keydown',e=>{
   else if(k===' ') armBuzzer();
   else if(/^[1-8]$/.test(k)){ const idx=+k-1; if(idx<QUESTIONS[state.i].a.length) reveal(idx); }
   else if(k==='x'||k==='X') strike();
-  else if(k==='q'||k==='Q') award('A');
-  else if(k==='p'||k==='P') award('B');
   else if(k==='r'||k==='R') revealAll();
   else if(k==='ArrowRight') goTo(state.i+1);
   else if(k==='ArrowLeft') goTo(state.i-1);

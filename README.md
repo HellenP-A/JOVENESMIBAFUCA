@@ -21,7 +21,7 @@ Hay dos versiones con la misma lógica de juego; elige la que más les guste:
 2. **Enfrentamiento (pulsador):** el presentador lee la pregunta y pulsa el botón rojo (o barra espaciadora). Un jugador de cada equipo está frente al teclado: el primero que presione **A** (equipo izquierdo) o **L** (equipo derecho) responde primero; luego responde el otro. El presentador escribe cada respuesta y el sistema la revela. **El presentador toca el panel del equipo cuya respuesta tuvo más puntos**: ese equipo queda "EN TURNO" e inicia el juego.
 3. **Ronda:** el equipo en turno sigue diciendo respuestas. El presentador escribe cada una en la casilla bajo el tablero y pulsa Enter (no importan mayúsculas, tildes ni errores pequeños): si está, se voltea con su posición y puntos; si no está, aparece una X gigante, se enciende una X en ERRORES de ese equipo y **el turno pasa automáticamente al otro equipo**, que continúa hasta fallar. También existe el **Panel del juez** (ventana aparte con las 8 respuestas) para revelar con un clic.
 4. **Turno:** por defecto el turno cambia con cada fallo. Con el botón "Turno cambia" se puede pasar al modo TV: tres errores y el otro equipo tiene una oportunidad de robo.
-5. **Puntos:** botón "Puntos para…" o teclas **Q** (equipo izquierdo) y **P** (equipo derecho).
+5. **Puntos (Versión 2):** se suman solos. Cada respuesta acertada por el equipo EN TURNO se suma de inmediato a su marcador, con animación "+puntos". Las respuestas del enfrentamiento se acreditan al equipo que el presentador elija para iniciar. "Revelar todo" al final no suma puntos. Para corregir, botones **-5 / +5** de cada equipo (también en el Panel del juez). En la Versión 1 los puntos se entregan con "Puntos para…" (teclas Q / P).
 6. **Multiplicador:** x2 o x3 para que las últimas rondas valgan más.
 
 ### Atajos de teclado
@@ -32,7 +32,7 @@ Hay dos versiones con la misma lógica de juego; elige la que más les guste:
 | A / L | Pulsador del equipo izquierdo / derecho |
 | 1–8 | Revelar respuesta a mano |
 | X | Strike |
-| Q / P | Dar puntos al equipo izquierdo / derecho |
+| Q / P | Versión 1: dar puntos al equipo izquierdo / derecho |
 | R | Revelar todas las respuestas |
 | ← / → | Pregunta anterior / siguiente |
 | Esc | Cerrar ventanas |
