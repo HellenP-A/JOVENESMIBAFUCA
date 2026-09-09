@@ -35,19 +35,24 @@
   .display{font-family:var(--font-display); letter-spacing:.02em}
 
   /* ---------- TITLE ---------- */
-  .title{display:flex; justify-content:center; padding:14px 20px 0}
-  .hex{
-    position:relative; padding:14px 70px 12px; text-align:center;
-    background:linear-gradient(180deg,#3A1478,#1A0A45);
-    clip-path:polygon(6% 0,94% 0,100% 50%,94% 100%,6% 100%,0 50%);
-    filter:drop-shadow(0 0 14px rgba(47,168,255,.7)) drop-shadow(0 0 40px rgba(245,184,0,.35));
+  .title{display:flex; justify-content:center; padding:12px 20px 0}
+  .hexo{
+    --cut:34px; position:relative; padding:5px;
+    background:linear-gradient(90deg,var(--gold),#7FD0FF,var(--gold));
+    clip-path:polygon(var(--cut) 0,calc(100% - var(--cut)) 0,100% 50%,calc(100% - var(--cut)) 100%,var(--cut) 100%,0 50%);
+    filter:drop-shadow(0 0 16px rgba(47,168,255,.7)) drop-shadow(0 0 30px rgba(245,184,0,.4));
   }
-  .hex::before{content:''; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(120,90,255,.5) 1px, transparent 1.4px); background-size:9px 9px; opacity:.6; pointer-events:none}
-  .hex::after{content:''; position:absolute; inset:0; padding:4px; background:linear-gradient(90deg,var(--gold),var(--neon),var(--gold)); clip-path:polygon(6% 0,94% 0,100% 50%,94% 100%,6% 100%,0 50%,0 50%,4px 50%,calc(6% + 2px) 4px,calc(94% - 2px) 4px,calc(100% - 4px) 50%,calc(94% - 2px) calc(100% - 4px),calc(6% + 2px) calc(100% - 4px),4px 50%,0 50%); pointer-events:none}
-  .t100{font-size:clamp(46px,7vw,92px); line-height:.9; color:var(--gold); text-shadow:0 3px 0 var(--gold-dark), 0 6px 0 #6B4B00, 0 0 24px rgba(245,184,0,.6); position:relative}
-  .tcris{font-size:clamp(34px,5.4vw,72px); line-height:.95; color:#fff; text-shadow:0 3px 0 #1E5BE0, 0 6px 0 #0B2A78, 0 0 18px rgba(47,168,255,.8); position:relative}
-  .tdij{font-size:clamp(30px,4.6vw,62px); line-height:.95; color:var(--gold); text-shadow:0 3px 0 var(--gold-dark), 0 6px 0 #6B4B00, 0 0 20px rgba(245,184,0,.6); position:relative}
-  .ribbon{display:inline-block; margin-top:8px; background:var(--purple); border:2px solid var(--gold); color:#fff; font-size:13px; letter-spacing:.2em; padding:3px 22px; clip-path:polygon(8px 0,calc(100% - 8px) 0,100% 50%,calc(100% - 8px) 100%,8px 100%,0 50%); position:relative}
+  .hexi{
+    --cut:31px; position:relative; padding:10px 64px 12px; text-align:center;
+    background:linear-gradient(180deg,#3A1478,#1A0A45);
+    clip-path:polygon(var(--cut) 0,calc(100% - var(--cut)) 0,100% 50%,calc(100% - var(--cut)) 100%,var(--cut) 100%,0 50%);
+  }
+  .hexi::before{content:''; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(120,90,255,.5) 1px, transparent 1.4px); background-size:9px 9px; opacity:.6; pointer-events:none}
+  .hexi > *{position:relative}
+  .t100{font-size:clamp(44px,6.4vw,84px); line-height:.9; color:var(--gold); text-shadow:0 3px 0 var(--gold-dark), 0 6px 0 #6B4B00, 0 0 24px rgba(245,184,0,.6)}
+  .tcris{font-size:clamp(32px,4.8vw,64px); line-height:.95; color:#fff; text-shadow:0 3px 0 #1E5BE0, 0 6px 0 #0B2A78, 0 0 18px rgba(47,168,255,.8)}
+  .tdij{font-size:clamp(28px,4.2vw,56px); line-height:.95; color:var(--gold); text-shadow:0 3px 0 var(--gold-dark), 0 6px 0 #6B4B00, 0 0 20px rgba(245,184,0,.6)}
+  .ribbon{display:inline-block; margin-top:8px; background:var(--purple); border:2px solid var(--gold); color:#fff; font-size:clamp(12px,1.2vw,16px); letter-spacing:.2em; padding:4px 26px; clip-path:polygon(10px 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,10px 100%,0 50%); text-transform:uppercase; font-weight:800}
 
   /* ---------- STAGE ---------- */
   .stage{flex:1; display:grid; grid-template-columns:minmax(170px,1fr) minmax(0,3.4fr) minmax(170px,1fr); gap:18px; padding:10px 24px 0; max-width:1600px; width:100%; margin:0 auto; align-items:start}
@@ -104,6 +109,15 @@
   .face.back .txt{flex:1; font-family:var(--font-display); font-size:clamp(17px,1.9vw,27px); text-transform:uppercase; color:#fff; text-shadow:0 2px 0 rgba(0,0,0,.5); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
   .face.back .pts{background:var(--gold); color:#1A0A45; font-family:var(--font-display); font-size:clamp(22px,2.4vw,34px); min-width:62px; text-align:center; border-radius:6px; padding:2px 8px 0; line-height:1.2; box-shadow:0 0 14px rgba(245,184,0,.7); font-variant-numeric:tabular-nums}
   .slot:focus-visible{outline:3px solid var(--gold2); outline-offset:2px}
+
+  /* ---------- ANSWER INPUT ---------- */
+  .answer{display:grid; grid-template-columns:1fr auto; gap:10px; align-items:center}
+  .answer input{font-family:var(--font-ui); font-weight:800; font-size:clamp(20px,2vw,28px); padding:10px 16px; border-radius:10px; border:3px solid var(--neon); background:#0A1440; color:#fff; width:100%; box-shadow:0 0 16px rgba(47,168,255,.35), inset 0 0 14px rgba(0,0,0,.5); text-transform:uppercase}
+  .answer input::placeholder{color:#6F86C8; text-transform:none; font-weight:600}
+  .answer input:focus{outline:none; border-color:var(--gold); box-shadow:0 0 0 4px rgba(245,184,0,.25)}
+  .verdict{grid-column:1/-1; text-align:center; min-height:26px; font-family:var(--font-display); font-size:20px; letter-spacing:.04em}
+  .verdict.ok{color:#5CFF9D; text-shadow:0 0 14px rgba(92,255,157,.7)} .verdict.no{color:var(--red); text-shadow:0 0 14px rgba(255,43,58,.7)}
+  @media (max-width:900px){ .answer{grid-template-columns:1fr} }
 
   /* ---------- PODIUM / BUZZER ---------- */
   .podium{display:flex; justify-content:center; align-items:flex-end; padding:6px 20px 0; position:relative}
@@ -173,6 +187,7 @@
   .qlist button:hover{border-color:var(--gold)}
   .qlist button.done{opacity:.5}
   .qlist button b{color:var(--gold); min-width:26px}
+  .qsec{font-family:var(--font-display); color:var(--gold); font-size:18px; letter-spacing:.06em; margin:10px 0 2px}
   .help{font-size:16px; color:#C9D3F5; line-height:1.55}
   .help b{color:var(--gold2)}
   .help kbd{background:#0A1440; border:1px solid #2A3A7A; border-radius:4px; padding:0 6px; color:#fff; font-family:inherit}
@@ -187,12 +202,12 @@
 </style>
 
 <div class="title">
-  <div class="hex">
+  <div class="hexo"><div class="hexi">
     <div class="t100 display">100</div>
     <div class="tcris display">CRISTIANOS</div>
     <div class="tdij display">DIJERON</div>
-    <div class="ribbon">MIBAFUCA - COMPETENCIA DE JOVENES</div>
-  </div>
+    <div class="ribbon">Competencia de jovenes MIBAFUCA</div>
+  </div></div>
 </div>
 
 <div class="stage">
@@ -209,6 +224,11 @@
     <div class="qmeta"><span>PREGUNTA <b id="qnum">1 / 20</b></span><span>EN JUEGO <b id="pot">0</b></span></div>
     <div class="question" id="qtext"></div>
     <div class="board" id="board"></div>
+    <form class="answer" id="answerForm" autocomplete="off">
+      <input type="text" id="answerInput" placeholder="Escribe la respuesta del participante y pulsa Enter" aria-label="Respuesta del participante">
+      <button class="btn gold big" type="submit">Verificar</button>
+      <div class="verdict" id="verdict"></div>
+    </form>
   </div>
 
   <div class="team B" id="teamB" data-team="B">
@@ -269,10 +289,11 @@
   <h2>COMO SE JUEGA</h2>
   <div class="help">
     <b>1. Enfrentamiento:</b> un jugador de cada equipo se para frente a la laptop. El presentador lee la pregunta y pulsa el boton rojo del podio (o <kbd>Espacio</kbd>). El primero que presione su tecla (<kbd>A</kbd> equipo izquierdo, <kbd>L</kbd> equipo derecho) gana el pulsador y responde primero. Si su respuesta esta en la lista, su equipo toma el control. Tambien puedes tocar el panel de un equipo para darle el turno a mano.<br>
-    <b>2. Ronda:</b> el jugador dice una respuesta. El juez pulsa <b>Panel del juez</b>: se abre una ventana aparte con las 8 respuestas y sus puntos (solo la ve el juez). Si la palabra esta en la lista, pulsa esa fila y se voltea en el tablero con su posicion y puntos. Si no esta, pulsa <b>No esta en la lista</b> y se enciende una X en el panel ERRORES del equipo en turno.<br>
+    <b>2. Ronda:</b> el jugador dice una respuesta. El presentador la escribe en la casilla bajo el tablero y pulsa <kbd>Enter</kbd>. El sistema la compara con la lista (no importan mayusculas, tildes ni errores pequenos): si esta, se voltea en el tablero con su posicion y puntos; si no esta, aparece una X gigante en pantalla y se enciende una X en ERRORES del equipo en turno. Tambien puedes usar el <b>Panel del juez</b> (ventana aparte con las 8 respuestas) para revelar con un clic.<br>
     <b>3. Robo:</b> con 3 X el otro equipo tiene una sola oportunidad. Si acierta, se lleva los puntos (<kbd>Q</kbd> o <kbd>P</kbd>); si falla, los puntos van al equipo original. Con "Turno cambia: cada fallo" el turno pasa con cada X.<br>
     <b>4. Puntos:</b> lo acumulado en "En juego" se entrega con "Puntos para..." y se revelan las respuestas que faltaban. Usa x2 o x3 en las ultimas rondas.<br>
     <b>Dos pantallas:</b> Win+P y "Extender": tablero en el proyector (F11 para pantalla completa) y Panel del juez en la laptop. Si el navegador bloquea la ventana, el panel se abre debajo del tablero.<br>
+    <b>Preguntas:</b> 100 preguntas principales (1-100) y 30 extra (101-130) para practicar y aprender la app. Usa <b>Lista</b> para saltar a cualquiera.<br>
     <b>Nombres:</b> clic sobre el nombre del equipo para editarlo. Los marcadores se guardan en este navegador hasta pulsar "Reiniciar".
   </div>
   <div class="row" style="margin-top:14px"><button class="btn ghost" data-close>Cerrar</button></div>
@@ -280,26 +301,136 @@
 
 <script>
 const QUESTIONS = [
-  {q:"Nombra un personaje de la Biblia que todo el mundo conoce.", a:[["Jesus / Jesucristo",30],["Moises",18],["David",14],["Noe",12],["Pablo",8],["Abraham",7],["Maria",6],["Pedro",5]]},
-  {q:"Algo que la gente lleva a la iglesia.", a:[["La Biblia",38],["El celular",17],["La ofrenda",14],["Un cuaderno",9],["Botella de agua",7],["A la familia",6],["A un amigo",5],["Un lapicero",4]]},
-  {q:"Un libro de la Biblia que empieza con la letra J.", a:[["Juan",33],["Josue",20],["Jueces",13],["Jonas",12],["Jeremias",10],["Job",6],["Judas",4],["Joel",2]]},
-  {q:"Una excusa para llegar tarde a la iglesia.", a:[["El trafico",28],["Me quede dormido",26],["No sabia que ponerme",14],["El desayuno",11],["La familia no estaba lista",9],["Se me olvido la hora",5],["No habia bus / transporte",4],["Estaba lloviendo",3]]},
-  {q:"Un milagro que hizo Jesus.", a:[["Resucitar a Lazaro",20],["Caminar sobre el agua",18],["Multiplicar panes y peces",17],["Agua en vino",14],["Sanar ciegos",11],["Calmar la tormenta",8],["Sanar leprosos",6],["Sanar al paralitico",6]]},
-  {q:"Un fruto del Espiritu.", a:[["Amor",28],["Paz",17],["Paciencia",14],["Gozo",12],["Bondad",8],["Fe",7],["Mansedumbre",5],["Dominio propio",5]]},
-  {q:"Algo que hace un joven cristiano en un campamento.", a:[["Fogata",23],["Adorar",19],["Hacer amigos",14],["Juegos",14],["Devocionales",10],["Dormir poco",8],["Comer",7],["Banarse en el rio",5]]},
-  {q:"Un animal que aparece en la Biblia.", a:[["Oveja / Cordero",24],["Burro / Asno",17],["Serpiente",14],["Leon",12],["Paloma",10],["Gran pez / Ballena",8],["Camello",7],["Pez",8]]},
-  {q:"Un instrumento del grupo de alabanza.", a:[["Guitarra",28],["Bateria",21],["Piano / Teclado",19],["Bajo",12],["Pandereta",8],["Violin",5],["La voz",4],["Trompeta",3]]},
-  {q:"Algo que un pastor dice mucho cuando predica.", a:[["Amen",28],["Dios te bendiga",19],["Abran sus Biblias",17],["Hermanos",11],["Aleluya",9],["Ya voy a terminar",9],["Gloria a Dios",4],["Alguien diga amen",3]]},
-  {q:"Una mujer de la Biblia.", a:[["Maria",28],["Ester",19],["Rut",14],["Eva",12],["Sara",9],["Debora",7],["Marta",6],["Ana",5]]},
-  {q:"Un personaje biblico que paso por una gran prueba.", a:[["Job",36],["Daniel",18],["Jose",14],["Abraham",10],["Pablo",8],["Noe",6],["Jonas",5],["Ester",3]]},
-  {q:"Algo que habia dentro del arca de Noe.", a:[["Animales",42],["La familia de Noe",19],["Comida",14],["Una paloma",9],["Madera",5],["Mal olor",5],["Un cuervo",3],["Paja / Heno",3]]},
-  {q:"Un nombre tipico para un grupo de jovenes de iglesia.", a:[["Guerreros",23],["Jovenes en Cristo",18],["Generacion",16],["Fuego",11],["Luz",9],["Impacto",8],["Levantate",8],["Remanente",7]]},
-  {q:"Un lugar famoso de la Biblia.", a:[["Jerusalen",28],["Belen",20],["Egipto",14],["Jerico",11],["Nazaret",8],["Babilonia",7],["Galilea",6],["Monte Sinai",6]]},
-  {q:"Algo que hace alguien cuando le piden orar en publico de sorpresa.", a:[["Se pone nervioso",27],["Ora larguisimo",18],["Repite 'Senor' mil veces",16],["Ora muy corto",11],["Se le olvida el amen",9],["Mira a todos lados",9],["Dice 'que ore otro'",6],["Le tiembla la voz",4]]},
-  {q:"Un rey que aparece en la Biblia.", a:[["David",33],["Salomon",23],["Saul",14],["Herodes",10],["Nabucodonosor",8],["Ezequias",4],["Faraon",4],["Josias",4]]},
-  {q:"Un discipulo de Jesus.", a:[["Pedro",32],["Juan",19],["Judas",14],["Mateo",10],["Tomas",8],["Andres",6],["Santiago",6],["Felipe",5]]},
-  {q:"Algo que hace la gente durante un sermon muy largo.", a:[["Se duerme",32],["Mira el celular",23],["Ve la hora",14],["Sale al bano",9],["Come dulces",8],["Dibuja en el boletin",6],["Bosteza",5],["Habla con el de al lado",3]]},
-  {q:"Una de las plagas de Egipto.", a:[["Ranas / Sapos",23],["Langostas",18],["Agua en sangre",16],["Moscas",11],["Granizo",9],["Tinieblas",8],["Piojos",8],["Muerte de primogenitos",7]]},
+  {"q":"Nombra un personaje de la Biblia que todo el mundo conoce.","c":"B","a":[["Jesus / Jesucristo",30],["Moises",20],["David",14],["Noe",11],["Pablo",9],["Abraham",7],["Maria",5],["Pedro",4]]},
+  {"q":"Algo que la gente lleva a la iglesia.","c":"B","a":[["La Biblia",35],["El celular",18],["La ofrenda",13],["Un cuaderno",10],["Botella de agua",9],["A la familia",7],["A un amigo",5],["Un lapicero",3]]},
+  {"q":"Un libro de la Biblia que empieza con la letra J.","c":"B","a":[["Juan",28],["Josue",19],["Jueces",15],["Jonas",12],["Jeremias",10],["Job",7],["Judas",5],["Joel",4]]},
+  {"q":"Una excusa para llegar tarde a la iglesia.","c":"B","a":[["El trafico",40],["Me quede dormido",17],["No sabia que ponerme",12],["El desayuno",9],["La familia no estaba lista",8],["Se me olvido la hora",6],["No habia bus / transporte",5],["Estaba lloviendo",3]]},
+  {"q":"Un milagro que hizo Jesus.","c":"B","a":[["Resucitar a Lazaro",25],["Caminar sobre el agua",20],["Multiplicar panes y peces",16],["Agua en vino",12],["Sanar ciegos",10],["Calmar la tormenta",8],["Sanar leprosos",5],["Sanar al paralitico",4]]},
+  {"q":"Un fruto del Espiritu.","c":"B","a":[["Amor",33],["Paz",21],["Paciencia",14],["Gozo",10],["Bondad",8],["Fe",6],["Mansedumbre",5],["Dominio propio",3]]},
+  {"q":"Algo que hace un joven cristiano en un campamento.","c":"B","a":[["Fogata",38],["Adorar",16],["Hacer amigos",13],["Juegos",11],["Devocionales",8],["Dormir poco",6],["Comer",5],["Banarse en el rio",3]]},
+  {"q":"Un animal que aparece en la Biblia.","c":"B","a":[["Oveja / Cordero",27],["Burro / Asno",21],["Serpiente",15],["Leon",12],["Paloma",9],["Gran pez / Ballena",7],["Camello",5],["Pez",4]]},
+  {"q":"Un instrumento del grupo de alabanza.","c":"B","a":[["Guitarra",30],["Bateria",20],["Piano / Teclado",14],["Bajo",11],["Pandereta",9],["Violin",7],["La voz",5],["Trompeta",4]]},
+  {"q":"Algo que un pastor dice mucho cuando predica.","c":"B","a":[["Amen",35],["Dios te bendiga",18],["Abran sus Biblias",13],["Hermanos",10],["Aleluya",9],["Ya voy a terminar",7],["Gloria a Dios",5],["Alguien diga amen",3]]},
+  {"q":"Una mujer de la Biblia.","c":"B","a":[["Maria",28],["Ester",19],["Rut",15],["Eva",12],["Sara",10],["Debora",7],["Marta",5],["Ana",4]]},
+  {"q":"Un personaje biblico que paso por una gran prueba.","c":"B","a":[["Job",40],["Daniel",17],["Jose",12],["Abraham",9],["Pablo",8],["Noe",6],["Jonas",5],["Ester",3]]},
+  {"q":"Algo que habia dentro del arca de Noe.","c":"B","a":[["Animales",25],["La familia de Noe",20],["Comida",16],["Una paloma",12],["Madera",10],["Mal olor",8],["Un cuervo",5],["Paja / Heno",4]]},
+  {"q":"Un nombre tipico para un grupo de jovenes de iglesia.","c":"B","a":[["Guerreros",33],["Jovenes en Cristo",21],["Generacion",14],["Fuego",10],["Luz",8],["Impacto",6],["Levantate",5],["Remanente",3]]},
+  {"q":"Un lugar famoso de la Biblia.","c":"B","a":[["Jerusalen",38],["Belen",16],["Egipto",13],["Jerico",11],["Nazaret",8],["Babilonia",6],["Galilea",5],["Monte Sinai",3]]},
+  {"q":"Algo que hace alguien cuando le piden orar en publico de sorpresa.","c":"B","a":[["Se pone nervioso",27],["Ora larguisimo",21],["Repite 'Senor' mil veces",15],["Ora muy corto",12],["Se le olvida el amen",9],["Mira a todos lados",7],["Dice 'que ore otro'",5],["Le tiembla la voz",4]]},
+  {"q":"Un rey que aparece en la Biblia.","c":"B","a":[["David",30],["Salomon",20],["Saul",14],["Herodes",11],["Nabucodonosor",9],["Ezequias",7],["Faraon",5],["Josias",4]]},
+  {"q":"Un discipulo de Jesus.","c":"B","a":[["Pedro",35],["Juan",18],["Judas",13],["Mateo",10],["Tomas",9],["Andres",7],["Santiago",5],["Felipe",3]]},
+  {"q":"Algo que hace la gente durante un sermon muy largo.","c":"B","a":[["Se duerme",28],["Mira el celular",19],["Ve la hora",15],["Sale al bano",12],["Come dulces",10],["Dibuja en el boletin",7],["Bosteza",5],["Habla con el de al lado",4]]},
+  {"q":"Una de las plagas de Egipto.","c":"B","a":[["Ranas / Sapos",40],["Langostas",17],["Agua en sangre",12],["Moscas",9],["Granizo",8],["Tinieblas",6],["Piojos",5],["Muerte de primogenitos",3]]},
+  {"q":"Un profeta de la Biblia.","c":"B","a":[["Elias",25],["Isaias",20],["Jeremias",16],["Daniel",12],["Jonas",10],["Eliseo",8],["Ezequiel",5],["Samuel",4]]},
+  {"q":"Algo que se hace en un culto.","c":"B","a":[["Cantar",33],["Orar",21],["Predicar",14],["Ofrendar",10],["Leer la Biblia",8],["Saludar a los hermanos",6],["Anuncios",5],["Santa cena",3]]},
+  {"q":"Un libro del Nuevo Testamento.","c":"B","a":[["Mateo",38],["Juan",16],["Hechos",13],["Romanos",11],["Apocalipsis",8],["Lucas",6],["Marcos",5],["Efesios",3]]},
+  {"q":"Un libro del Antiguo Testamento.","c":"B","a":[["Genesis",27],["Exodo",21],["Salmos",15],["Proverbios",12],["Isaias",9],["Daniel",7],["Jonas",5],["Job",4]]},
+  {"q":"Algo que hizo Jesus con sus discipulos.","c":"B","a":[["La ultima cena",30],["Lavar los pies",20],["Orar",14],["Ensenar parabolas",11],["Pescar",9],["Caminar juntos",7],["Enviarlos a predicar",5],["Comer",4]]},
+  {"q":"Una parabola de Jesus.","c":"B","a":[["El hijo prodigo",35],["El buen samaritano",18],["El sembrador",13],["La oveja perdida",10],["Las diez virgenes",9],["Los talentos",7],["El fariseo y el publicano",5],["La casa sobre la roca",3]]},
+  {"q":"Un versiculo que casi todos se saben.","c":"B","a":[["Juan 3:16",28],["Salmo 23",19],["Filipenses 4:13",15],["Jeremias 29:11",12],["Romanos 8:28",10],["Josue 1:9",7],["Proverbios 3:5",5],["Salmo 91",4]]},
+  {"q":"Algo que un joven pide en oracion.","c":"B","a":[["Sabiduria",40],["Novio o novia",17],["Pasar el examen",12],["Salud de la familia",9],["Trabajo",8],["Direccion",6],["Perdon",5],["Un carro",3]]},
+  {"q":"Un nombre biblico que se usa hoy.","c":"B","a":[["David",25],["Daniel",20],["Samuel",16],["Maria",12],["Josue",10],["Ester",8],["Isaac",5],["Gabriel",4]]},
+  {"q":"Algo que hace la gente cuando pasan la ofrenda.","c":"B","a":[["Busca en la cartera",33],["Mira al piso",21],["Saca el celular",14],["Pide cambio",10],["Sonrie nerviosa",8],["Da moneditas",6],["Se va al bano",5],["Pone cara de 'ya di'",3]]},
+  {"q":"Uno de los diez mandamientos.","c":"B","a":[["No mataras",38],["No robaras",16],["Honra a tu padre y a tu madre",13],["No mentiras",11],["No cometeras adulterio",8],["Amar a Dios sobre todo",6],["No codiciaras",5],["Santificar el dia de reposo",3]]},
+  {"q":"Algo que se ve en una boda cristiana.","c":"B","a":[["El pastor",27],["Anillos",21],["Vestido blanco",15],["Votos",12],["Oracion",9],["Alabanza",7],["Pastel",5],["Lagrimas",4]]},
+  {"q":"Un personaje que hablo con un angel.","c":"B","a":[["Maria",30],["Zacarias",20],["Jose",14],["Abraham",11],["Gedeon",9],["Daniel",7],["Lot",5],["Los pastores",4]]},
+  {"q":"Algo que llevas a un retiro.","c":"B","a":[["Biblia",35],["Ropa",18],["Cepillo de dientes",13],["Cuaderno",10],["Snacks",9],["Almohada",7],["Repelente",5],["Cargador",3]]},
+  {"q":"Un lider en la iglesia.","c":"B","a":[["Pastor",28],["Diacono",19],["Lider de jovenes",15],["Lider de alabanza",12],["Maestro de escuela dominical",10],["Anciano",7],["Ujier",5],["Tesorero",4]]},
+  {"q":"Algo que hacen los ninos en la iglesia.","c":"B","a":[["Correr",40],["Dibujar",17],["Dormir",12],["Pedir dulces",9],["Hablar",8],["Ir al bano",6],["Jugar",5],["Cantar fuerte",3]]},
+  {"q":"Algo que hizo Moises.","c":"B","a":[["Abrir el mar",25],["Recibir los diez mandamientos",20],["Sacar a Israel de Egipto",16],["Golpear la roca",12],["Ver la zarza ardiente",10],["Enfrentar a Faraon",8],["Subir al Sinai",5],["Hacer la serpiente de bronce",4]]},
+  {"q":"Algo de la Navidad en la iglesia.","c":"B","a":[["El nacimiento / pesebre",33],["Villancicos",21],["Drama navideno",14],["Regalos",10],["Cena",8],["Luces",6],["Arbol",5],["Vigilia",3]]},
+  {"q":"Un heroe de la fe de Hebreos 11.","c":"B","a":[["Abraham",38],["Noe",16],["Moises",13],["David",11],["Enoc",8],["Sara",6],["Gedeon",5],["Rahab",3]]},
+  {"q":"Algo que dicen las mamas cristianas.","c":"B","a":[["Ya oraste?",27],["Dios te bendiga",21],["Vamos a la iglesia",15],["Da gracias a Dios",12],["Ponte a leer la Biblia",9],["Lo voy a poner en oracion",7],["Diosito",5],["Con Dios todo se puede",4]]},
+  {"q":"Un apostol.","c":"B","a":[["Pedro",30],["Pablo",20],["Juan",14],["Santiago",11],["Mateo",9],["Andres",7],["Tomas",5],["Felipe",4]]},
+  {"q":"Un instrumento mencionado en la Biblia.","c":"B","a":[["Arpa",35],["Trompeta",18],["Pandero",13],["Flauta",10],["Cimbalos",9],["Lira",7],["Salterio",5],["Cuerno / Shofar",3]]},
+  {"q":"Una comida que aparece en la Biblia.","c":"B","a":[["Pan",28],["Pescado",19],["Vino",15],["Miel",12],["Higos",10],["Cordero",7],["Mana",5],["Lentejas",4]]},
+  {"q":"Algo que pasa en un bautismo.","c":"B","a":[["Se mojan",40],["Aplausos",17],["Testimonio",12],["Lagrimas",9],["Fotos",8],["Cantan",6],["Oracion",5],["La toalla",3]]},
+  {"q":"Un pecado que menciona la Biblia.","c":"B","a":[["Mentira",25],["Orgullo",20],["Envidia",16],["Adulterio",12],["Robo",10],["Idolatria",8],["Codicia",5],["Ira",4]]},
+  {"q":"Algo que hizo David.","c":"B","a":[["Vencio a Goliat",33],["Fue rey",21],["Escribio salmos",14],["Toco el arpa",10],["Cuido ovejas",8],["Danzo ante el arca",6],["Peco con Betsabe",5],["Fue amigo de Jonatan",3]]},
+  {"q":"Un milagro del Antiguo Testamento.","c":"B","a":[["El Mar Rojo",38],["El mana",16],["Los muros de Jerico",13],["El sol se detuvo",11],["El foso de los leones",8],["El horno de fuego",6],["Jonas en el pez",5],["Fuego del cielo con Elias",3]]},
+  {"q":"Un nombre para una iglesia.","c":"B","a":[["Vida Nueva",27],["Casa de Dios",21],["Monte Sion",15],["Betel",12],["Emanuel",9],["Roca Eterna",7],["Rios de Agua Viva",5],["Jesus es el Senor",4]]},
+  {"q":"Algo que hace un joven en el celular durante el culto.","c":"B","a":[["Leer la Biblia",30],["WhatsApp",20],["Instagram / TikTok",14],["Fotos",11],["Juegos",9],["Buscar la letra del canto",7],["Ver la hora",5],["Tomar apuntes",4]]},
+  {"q":"Un lugar donde se predica el evangelio.","c":"B","a":[["Iglesia",35],["La calle",18],["La carcel",13],["Hospital",10],["Escuela",9],["Casas",7],["Parque",5],["Estadio",3]]},
+  {"q":"Algo que dice el lider de alabanza.","c":"B","a":[["Levanten sus manos",28],["Todos de pie",19],["Aplaudan al Senor",15],["Digan amen",12],["Repitan conmigo",10],["Canten fuerte",7],["Esta es la casa de Dios",5],["Una vez mas",4]]},
+  {"q":"Una tentacion comun para los jovenes.","c":"B","a":[["Redes sociales",40],["Mentir",17],["Novio o novia no cristiano",12],["Alcohol",9],["Pornografia",8],["Chismes",6],["Pereza",5],["Copiar en el examen",3]]},
+  {"q":"Algo que Dios creo en la creacion.","c":"B","a":[["La luz",25],["El cielo",20],["La tierra",16],["El mar",12],["El sol y la luna",10],["Los animales",8],["Las plantas",5],["El hombre y la mujer",4]]},
+  {"q":"Un personaje biblico que fue perseguido.","c":"B","a":[["Pablo",33],["David",21],["Elias",14],["Jose",10],["Daniel",8],["Jesus",6],["Esteban",5],["Moises",3]]},
+  {"q":"Algo que se hace en Semana Santa.","c":"B","a":[["Ir a la iglesia",38],["Ayunar",16],["Drama de la pasion",13],["Santa cena",11],["Vigilia",8],["Reflexionar",6],["Celebrar la resurreccion",5],["Descansar",3]]},
+  {"q":"Algo del nacimiento de Jesus.","c":"B","a":[["El pesebre",27],["La estrella",21],["Los pastores",15],["Los reyes magos",12],["Los angeles",9],["Maria",7],["Jose",5],["Los animales",4]]},
+  {"q":"Algo que hace un ujier.","c":"B","a":[["Saludar",30],["Sentar a la gente",20],["Recoger la ofrenda",14],["Repartir boletines",11],["Cuidar la puerta",9],["Callar a los ninos",7],["Dar la bienvenida",5],["Acomodar sillas",4]]},
+  {"q":"Un personaje que vencio a un enemigo poderoso.","c":"B","a":[["David",35],["Sanson",18],["Josue",13],["Gedeon",10],["Caleb",9],["Debora",7],["Jonatan",5],["Elias",3]]},
+  {"q":"Algo que hizo Pedro.","c":"B","a":[["Nego a Jesus",28],["Camino sobre el agua",19],["Predico en Pentecostes",15],["Corto una oreja",12],["Pesco",10],["Fue liberado de la carcel",7],["Sano al cojo",5],["Escribio cartas",4]]},
+  {"q":"Un nombre o titulo de Jesus.","c":"B","a":[["Cordero de Dios",40],["Rey de reyes",17],["Salvador",12],["Emanuel",9],["Buen pastor",8],["Principe de paz",6],["Mesias",5],["Luz del mundo",3]]},
+  {"q":"Comida que la gente trae a un almuerzo de la iglesia.","c":"B","a":[["Arroz con pollo",25],["Refresco",20],["Pastel",16],["Ensalada",12],["Tamales",10],["Empanadas",8],["Pan",5],["Fruta",4]]},
+  {"q":"Una ciudad del Nuevo Testamento.","c":"B","a":[["Jerusalen",33],["Belen",21],["Nazaret",14],["Capernaum",10],["Jerico",8],["Efeso",6],["Roma",5],["Corinto",3]]},
+  {"q":"Algo que se aprende en la escuela dominical.","c":"B","a":[["Historias biblicas",38],["Versiculos",16],["Cantos",13],["A orar",11],["Valores",8],["Manualidades",6],["Los diez mandamientos",5],["Los libros de la Biblia",3]]},
+  {"q":"Un oficio de un personaje biblico.","c":"B","a":[["Pescador",27],["Pastor de ovejas",21],["Carpintero",15],["Rey",12],["Cobrador de impuestos",9],["Agricultor",7],["Medico",5],["Soldado",4]]},
+  {"q":"Algo que hace un joven nuevo en la iglesia.","c":"B","a":[["Se sienta atras",30],["Se queda callado",20],["Busca amigos",14],["No canta",11],["Mira a todos",9],["Llega tarde",7],["Pregunta todo",5],["Se va rapido",4]]},
+  {"q":"Una forma de poner la fe en accion.","c":"B","a":[["Ayudar al necesitado",35],["Perdonar",18],["Diezmar",13],["Testificar",10],["Orar por los enfermos",9],["Servir",7],["Visitar",5],["Compartir comida",3]]},
+  {"q":"Algo relacionado con Pentecostes.","c":"B","a":[["El Espiritu Santo",28],["Lenguas de fuego",19],["Viento recio",15],["Hablar en lenguas",12],["Pedro predico",10],["Tres mil personas",7],["El aposento alto",5],["Poder",4]]},
+  {"q":"Algo relacionado con el fin de los tiempos.","c":"B","a":[["La segunda venida",40],["El rapto",17],["El juicio final",12],["El anticristo",9],["La tribulacion",8],["Cielo nuevo y tierra nueva",6],["La trompeta",5],["La resurreccion",3]]},
+  {"q":"Un personaje que oro y Dios le respondio.","c":"B","a":[["Ana",25],["Elias",20],["Ezequias",16],["Daniel",12],["Salomon",10],["Jonas",8],["Nehemias",5],["Pedro",4]]},
+  {"q":"Algo que nunca falta en un culto de jovenes.","c":"B","a":[["Alabanza",33],["Dinamica o juego",21],["Predicacion",14],["Comida",10],["Fotos",8],["Oracion",6],["Bienvenida",5],["Anuncios",3]]},
+  {"q":"Un monte de la Biblia.","c":"B","a":[["Sinai",38],["De los Olivos",16],["Carmelo",13],["Sion",11],["Ararat",8],["Nebo",6],["Moriah",5],["Calvario / Golgota",3]]},
+  {"q":"Algo que hizo o dijo Jesus en la cruz.","c":"B","a":[["Perdono",27],["Murio por nosotros",21],["Dijo 'consumado es'",15],["Hablo con el ladron",12],["Encargo a su madre",9],["Dijo 'tengo sed'",7],["Clamo a Dios",5],["Fue traspasado",4]]},
+  {"q":"Una palabra que se repite mucho en la iglesia.","c":"B","a":[["Amen",30],["Aleluya",20],["Gloria a Dios",14],["Hermano",11],["Bendicion",9],["Gracia",7],["Senor",5],["Fe",4]]},
+  {"q":"Un libro escrito por Pablo.","c":"B","a":[["Romanos",35],["Efesios",18],["Filipenses",13],["Galatas",10],["Corintios",9],["Timoteo",7],["Colosenses",5],["Filemon",3]]},
+  {"q":"Un hijo de Jacob.","c":"B","a":[["Jose",28],["Benjamin",19],["Juda",15],["Ruben",12],["Levi",10],["Simeon",7],["Dan",5],["Neftali",4]]},
+  {"q":"Algo que hace el pastor despues del culto.","c":"B","a":[["Saludar a todos",40],["Orar por la gente",17],["Comer",12],["Reuniones",9],["Fotos",8],["Consejeria",6],["Hablar por horas",5],["Descansar",3]]},
+  {"q":"Un canto infantil cristiano.","c":"B","a":[["Yo tengo un amigo que me ama",25],["Cristo me ama",20],["Mi Dios es tan grande",16],["El arca de Noe",12],["Zaqueo",10],["Estoy alegre",8],["Jesus esta pasando por aqui",5],["Padre Abraham",4]]},
+  {"q":"Algo que un cristiano no debe hacer.","c":"B","a":[["Mentir",33],["Robar",21],["Chismear",14],["Odiar",10],["Vengarse",8],["Jurar en vano",6],["Emborracharse",5],["Idolatrar",3]]},
+  {"q":"Un personaje malo de la Biblia.","c":"B","a":[["Judas",38],["Satanas",16],["Faraon",13],["Herodes",11],["Jezabel",8],["Goliat",6],["Cain",5],["Aman",3]]},
+  {"q":"Algo que hay en el templo de la iglesia.","c":"B","a":[["Sillas / bancas",27],["Pulpito",21],["Altar",15],["Instrumentos",12],["Pantalla",9],["Biblias",7],["Caja de ofrenda",5],["Equipo de sonido",4]]},
+  {"q":"Lo que siente alguien al conocer a Jesus.","c":"B","a":[["Paz",30],["Alegria",20],["Perdon",14],["Amor",11],["Libertad",9],["Esperanza",7],["Ganas de llorar",5],["Cambio",4]]},
+  {"q":"Un juego tipico de campamento cristiano.","c":"B","a":[["Futbol",35],["Busqueda del tesoro",18],["Guerra de agua",13],["Voleibol",10],["Carrera de sacos",9],["Quemados",7],["Karaoke",5],["Noche de talentos",3]]},
+  {"q":"Algo que Dios le dio a Salomon.","c":"B","a":[["Sabiduria",28],["Riquezas",19],["El templo",15],["Fama",12],["Paz",10],["Un reino",7],["Muchas esposas",5],["Larga vida",4]]},
+  {"q":"Un personaje que fue resucitado.","c":"B","a":[["Lazaro",40],["Jesus",17],["La hija de Jairo",12],["El hijo de la viuda de Nain",9],["Tabita / Dorcas",8],["Eutico",6],["El hijo de la sunamita",5],["El hijo de la viuda de Sarepta",3]]},
+  {"q":"Algo que hace alguien que llega tarde a la iglesia.","c":"B","a":[["Se sienta atras",25],["Entra en silencio",20],["Pide perdon",16],["Saluda a todos",12],["Busca a su familia",10],["Va al bano primero",8],["Se queda de pie",5],["Sonrie",4]]},
+  {"q":"Un enemigo del pueblo de Israel.","c":"B","a":[["Filisteos",33],["Egipcios",21],["Babilonios",14],["Amalecitas",10],["Asirios",8],["Cananeos",6],["Madianitas",5],["Romanos",3]]},
+  {"q":"Un nombre para un ministerio de alabanza.","c":"B","a":[["Adoradores",38],["Levitas",16],["Generacion de Adoradores",13],["Fuego Santo",11],["Voces de Sion",8],["Nueva Vision",6],["Casa de Alabanza",5],["Shalom",3]]},
+  {"q":"Un personaje que tuvo un sueno o vision.","c":"B","a":[["Jose",27],["Daniel",21],["Jacob",15],["Juan en Apocalipsis",12],["Pedro",9],["Pablo",7],["Ezequiel",5],["Nabucodonosor",4]]},
+  {"q":"Algo que pasa en el culto de fin de ano.","c":"B","a":[["Cena",30],["Vigilia",20],["Testimonios",14],["Cuenta regresiva",11],["Oracion",9],["Alabanza",7],["Abrazos",5],["Propositos",4]]},
+  {"q":"Un valor cristiano.","c":"B","a":[["Amor",35],["Honestidad",18],["Humildad",13],["Respeto",10],["Perdon",9],["Servicio",7],["Fidelidad",5],["Generosidad",3]]},
+  {"q":"Un personaje biblico relacionado con el agua.","c":"B","a":[["Noe",28],["Moises",19],["Jonas",15],["Pedro",12],["Jesus",10],["Naaman",7],["Juan el Bautista",5],["Elias",4]]},
+  {"q":"Algo que hace un misionero.","c":"B","a":[["Predicar",40],["Viajar",17],["Aprender idiomas",12],["Construir iglesias",9],["Ayudar a los pobres",8],["Ensenar",6],["Orar",5],["Sembrar iglesias",3]]},
+  {"q":"Algo que dice un joven cristiano cuando le gusta alguien.","c":"B","a":[["Voy a orar",25],["Es de la iglesia?",20],["Dios me lo confirmo",16],["Le pedi una senal",12],["Es de Dios",10],["Ya lo puse en el altar",8],["Le mande un versiculo",5],["Solo somos amigos",4]]},
+  {"q":"Un regalo que se da en la iglesia.","c":"B","a":[["Una Biblia",33],["Un libro cristiano",21],["Una pulsera",14],["Una tarjeta",10],["Chocolates",8],["Flores",6],["Cuadro con versiculo",5],["Camiseta",3]]},
+  {"q":"Un lugar de la vida de Jesus.","c":"B","a":[["Belen",38],["Nazaret",16],["Egipto",13],["Jerusalen",11],["Galilea",8],["Capernaum",6],["Getsemani",5],["Golgota",3]]},
+  {"q":"Algo que trae una Biblia ademas del texto.","c":"B","a":[["Mapas",27],["Concordancia",21],["Indice",15],["Notas",12],["Ilustraciones",9],["Dedicatoria",7],["Cinta marcadora",5],["Plan de lectura",4]]},
+  {"q":"Algo que siempre tiene una abuela cristiana.","c":"B","a":[["Biblia grande",30],["Cajita de versiculos",20],["Plantas",14],["Cafe",11],["Himnario",9],["Panuelo",7],["Lentes",5],["Consejos",4]]},
+  {"q":"Algo que Jesus dijo que somos.","c":"B","a":[["Sal de la tierra",35],["Luz del mundo",18],["Sus amigos",13],["Sus ovejas",10],["Hijos de Dios",9],["Pampanos",7],["Discipulos",5],["Pescadores de hombres",3]]},
+  {"q":"Un pais o region a donde viajaron personajes biblicos.","c":"B","a":[["Egipto",28],["Babilonia",19],["Israel",15],["Roma",12],["Grecia",10],["Persia",7],["Etiopia",5],["Siria",4]]},
+  {"q":"Algo que pasa en un concierto cristiano.","c":"B","a":[["Saltar",40],["Cantar",17],["Manos arriba",12],["Llanto",9],["Oracion",8],["Fotos",6],["Mucha gente",5],["Ofrenda",3]]},
+  {"q":"Algo que hace la gente antes de dormir.","c":"X","a":[["Orar / Rezar",30],["Cepillarse los dientes",20],["Ver el celular",14],["Leer",11],["Ver television",9],["Poner la alarma",7],["Banarse",5],["Comer algo",4]]},
+  {"q":"Un color.","c":"X","a":[["Azul",35],["Rojo",18],["Verde",13],["Amarillo",10],["Negro",9],["Blanco",7],["Morado",5],["Rosado",3]]},
+  {"q":"Una fruta.","c":"X","a":[["Manzana",28],["Banano",19],["Naranja",15],["Sandia",12],["Uva",10],["Fresa",7],["Mango",5],["Pina",4]]},
+  {"q":"Algo que se lleva a la playa.","c":"X","a":[["Bloqueador",40],["Toalla",17],["Traje de bano",12],["Sombrilla",9],["Comida",8],["Agua",6],["Lentes de sol",5],["Bocina",3]]},
+  {"q":"Un animal domestico.","c":"X","a":[["Perro",25],["Gato",20],["Pez",16],["Loro",12],["Conejo",10],["Hamster",8],["Tortuga",5],["Gallina",4]]},
+  {"q":"Algo que hay en una mochila escolar.","c":"X","a":[["Cuadernos",33],["Lapices",21],["Libros",14],["Merienda",10],["Botella de agua",8],["Calculadora",6],["Celular",5],["Tijeras",3]]},
+  {"q":"Un deporte.","c":"X","a":[["Futbol",38],["Basquetbol",16],["Voleibol",13],["Natacion",11],["Beisbol",8],["Tenis",6],["Ciclismo",5],["Atletismo",3]]},
+  {"q":"Algo tipico de un desayuno.","c":"X","a":[["Huevos",27],["Pan",21],["Cafe",15],["Arroz y frijoles",12],["Fruta",9],["Cereal",7],["Panqueques",5],["Jugo",4]]},
+  {"q":"Algo que la gente pierde seguido.","c":"X","a":[["Llaves",30],["Celular",20],["Billetera",14],["Lentes",11],["Control remoto",9],["Calcetines",7],["Paraguas",5],["Lapicero",4]]},
+  {"q":"Un instrumento musical.","c":"X","a":[["Guitarra",35],["Piano",18],["Bateria",13],["Violin",10],["Flauta",9],["Trompeta",7],["Bajo",5],["Saxofon",3]]},
+  {"q":"Algo que hace la gente en el trafico.","c":"X","a":[["Escuchar musica",28],["Usar el celular",19],["Tocar la bocina",15],["Cantar",12],["Comer",10],["Hablar solo",7],["Orar",5],["Maquillarse",4]]},
+  {"q":"Un pais de Latinoamerica.","c":"X","a":[["Mexico",40],["Colombia",17],["Argentina",12],["Costa Rica",9],["Peru",8],["Chile",6],["Guatemala",5],["Venezuela",3]]},
+  {"q":"Algo que se regala en un cumpleanos.","c":"X","a":[["Ropa",25],["Perfume",20],["Dinero",16],["Pastel",12],["Flores",10],["Chocolates",8],["Zapatos",5],["Juguetes",4]]},
+  {"q":"Una profesion.","c":"X","a":[["Doctor",33],["Maestro",21],["Ingeniero",14],["Policia",10],["Abogado",8],["Enfermero",6],["Chofer",5],["Bombero",3]]},
+  {"q":"Algo que hay en la cocina.","c":"X","a":[["Refrigeradora",38],["Estufa",16],["Ollas",13],["Platos",11],["Cuchillos",8],["Microondas",6],["Licuadora",5],["Mesa",3]]},
+  {"q":"Un lugar para ir de vacaciones.","c":"X","a":[["La playa",27],["La montana",21],["Otro pais",15],["Casa de la abuela",12],["Un hotel",9],["Parque de diversiones",7],["Camping",5],["El rio",4]]},
+  {"q":"Algo que hace la gente cuando esta aburrida.","c":"X","a":[["Ver el celular",30],["Dormir",20],["Comer",14],["Ver television",11],["Salir",9],["Escuchar musica",7],["Limpiar",5],["Llamar a alguien",4]]},
+  {"q":"Un superheroe.","c":"X","a":[["Superman",35],["Spiderman",18],["Batman",13],["Hulk",10],["Iron Man",9],["Mujer Maravilla",7],["Capitan America",5],["Flash",3]]},
+  {"q":"Algo que se hace en Navidad.","c":"X","a":[["Cenar en familia",28],["Dar regalos",19],["Ir a la iglesia",15],["Poner el arbol",12],["Cantar",10],["Ver luces",7],["Comer tamales",5],["Reventar polvora",4]]},
+  {"q":"Un vehiculo.","c":"X","a":[["Carro",40],["Moto",17],["Bus",12],["Bicicleta",9],["Avion",8],["Camion",6],["Barco",5],["Tren",3]]},
+  {"q":"Algo que hace un bebe.","c":"X","a":[["Llorar",25],["Dormir",20],["Comer",16],["Reir",12],["Gatear",10],["Balbucear",8],["Ensuciar el panal",5],["Babear",4]]},
+  {"q":"Una red social.","c":"X","a":[["Facebook",33],["Instagram",21],["TikTok",14],["WhatsApp",10],["YouTube",8],["X / Twitter",6],["Snapchat",5],["Telegram",3]]},
+  {"q":"Algo que se necesita para cocinar arroz.","c":"X","a":[["Arroz",38],["Agua",16],["Sal",13],["Aceite",11],["Olla",8],["Estufa",6],["Cebolla",5],["Ajo",3]]},
+  {"q":"Algo que hace un adolescente en su cuarto.","c":"X","a":[["Dormir",27],["Estar en el celular",21],["Estudiar",15],["Escuchar musica",12],["Videojuegos",9],["Desordenar",7],["Comer",5],["Hablar con amigos",4]]},
+  {"q":"Un tipo de clima.","c":"X","a":[["Soleado",30],["Lluvioso",20],["Nublado",14],["Frio",11],["Caluroso",9],["Ventoso",7],["Tormenta",5],["Neblina",4]]},
+  {"q":"Algo que hay en un hospital.","c":"X","a":[["Doctores",35],["Enfermeras",18],["Camas",13],["Medicinas",10],["Ambulancia",9],["Sala de espera",7],["Rayos X",5],["Jeringas",3]]},
+  {"q":"Un sabor de helado.","c":"X","a":[["Vainilla",28],["Chocolate",19],["Fresa",15],["Galleta",12],["Menta",10],["Cafe",7],["Mango",5],["Oreo",4]]},
+  {"q":"Algo que hace la gente en el gimnasio.","c":"X","a":[["Levantar pesas",40],["Correr",17],["Tomarse fotos",12],["Sudar",9],["Escuchar musica",8],["Estirar",6],["Ver a los demas",5],["Tomar agua",3]]},
+  {"q":"Un juego de mesa.","c":"X","a":[["Monopolio",25],["Ajedrez",20],["Domino",16],["Uno",12],["Damas",10],["Jenga",8],["Bingo / Loteria",5],["Cartas",4]]},
+  {"q":"Algo que se dice al despedirse.","c":"X","a":[["Adios",33],["Nos vemos",21],["Cuidate",14],["Dios te bendiga",10],["Chao",8],["Hasta luego",6],["Bendiciones",5],["Saludos a la familia",3]]}
 ];
 
 const $ = s=>document.querySelector(s);
@@ -323,7 +454,7 @@ const sfx={
 /* ---- render ---- */
 function render(){
   const Q=QUESTIONS[state.i];
-  $('#qnum').textContent=(state.i+1)+' / '+QUESTIONS.length;
+  $('#qnum').textContent=(state.i+1)+' / '+QUESTIONS.length+(Q.c==='X'?'  EXTRA':'');
   $('#qtext').textContent=Q.q;
   const b=$('#board'); b.innerHTML='';
   const n=Q.a.length, rows=Math.ceil(n/2);
@@ -389,7 +520,7 @@ function award(t){
 
 function goTo(i){
   state.i=(i+QUESTIONS.length)%QUESTIONS.length; state.open=[]; state.strikes=0; potLocked=false; state.active=null; clearBuzz();
-  render(); closeModals(); updateJudge();
+  render(); closeModals(); updateJudge(); const v=$('#verdict'); v.className='verdict'; v.textContent='';
 }
 function flash(html,ms){ const f=$('#flash'); f.innerHTML=html; f.classList.add('show'); clearTimeout(f._t); f._t=setTimeout(()=>f.classList.remove('show'),ms); }
 
@@ -411,6 +542,33 @@ function buzzIn(t){
   setTimeout(()=>$('#team'+t).classList.remove('buzzed'),2500);
 }
 $('#buzz').onclick=armBuzzer;
+
+/* ---- answer matching ---- */
+const STOP=new Set(['el','la','los','las','un','una','unos','unas','de','del','al','a','y','o','en','que','se','su','sus','mi','mis','lo','le','con','por','para','es','ir','hacer']);
+function norm(s){ return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9\u00f1\s]/g,' ').split(/\s+/).filter(w=>w&&!STOP.has(w)).join(' '); }
+function lev(a,b){ const m=a.length,n=b.length; if(!m) return n; if(!n) return m; let p=[...Array(n+1).keys()];
+  for(let i=1;i<=m;i++){ let c=[i]; for(let j=1;j<=n;j++) c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1)); p=c; } return p[n]; }
+function wordsMatch(x,y){ if(x===y) return true; if(x.length>=4&&y.length>=4&&(x.startsWith(y)||y.startsWith(x))) return true; return lev(x,y)<=Math.floor(Math.max(x.length,y.length)*0.25); }
+function similar(a,b){ if(!a||!b) return false; if(a===b) return true;
+  if(lev(a,b)<=Math.max(1,Math.floor(Math.max(a.length,b.length)*0.25))) return true;
+  const A=a.split(' '), B=b.split(' ');
+  return A.some(x=>x.length>=3 && B.some(y=>y.length>=3 && wordsMatch(x,y))); }
+function findAnswer(guess){
+  const g=norm(guess); if(!g) return -1;
+  const Q=QUESTIONS[state.i];
+  for(let k=0;k<Q.a.length;k++){ if(Q.a[k][0].split('/').map(norm).some(alt=>similar(g,alt))) return k; }
+  return -1;
+}
+function checkAnswer(){
+  const inp=$('#answerInput'), v=$('#verdict'), guess=inp.value.trim(); if(!guess) return;
+  const k=findAnswer(guess);
+  if(k>=0){
+    if(state.open[k]){ v.className='verdict ok'; v.textContent='YA ESTABA REVELADA: #'+(k+1)+' '+QUESTIONS[state.i].a[k][0]; }
+    else { reveal(k); v.className='verdict ok'; v.textContent='ESTA EN LA LISTA: #'+(k+1)+' '+QUESTIONS[state.i].a[k][0]+' - '+QUESTIONS[state.i].a[k][1]+' PUNTOS'; }
+  } else { v.className='verdict no'; v.textContent='"'+guess.toUpperCase()+'" NO ESTA EN LA LISTA'; strike(); }
+  inp.value=''; inp.focus();
+}
+$('#answerForm').addEventListener('submit',e=>{ e.preventDefault(); checkAnswer(); });
 
 /* ---- judge panel ---- */
 let judgeWin=null;
@@ -469,7 +627,10 @@ $('#drawerClose').onclick=()=>$('#drawer').classList.remove('show');
 /* ---- list & modals ---- */
 function buildList(){
   const l=$('#qlist'); l.innerHTML='';
-  QUESTIONS.forEach((Q,k)=>{ const b=document.createElement('button'); b.className=state.played.includes(k)?'done':''; b.innerHTML=`<b>${k+1}</b><span>${Q.q}</span>`; b.onclick=()=>goTo(k); l.appendChild(b); });
+  let lastCat='';
+  QUESTIONS.forEach((Q,k)=>{
+    if(Q.c!==lastCat){ lastCat=Q.c; const h=document.createElement('div'); h.className='qsec'; h.textContent=Q.c==='X'?'PREGUNTAS EXTRA (para practicar y aprender la app)':'PREGUNTAS PRINCIPALES'; l.appendChild(h); }
+    const b=document.createElement('button'); b.className=state.played.includes(k)?'done':''; b.innerHTML=`<b>${k+1}</b><span>${Q.q}</span>`; b.onclick=()=>goTo(k); l.appendChild(b); });
 }
 function closeModals(){ document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show')); }
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);
